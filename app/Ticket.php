@@ -17,6 +17,6 @@ class Ticket extends Model
     // Relationships
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'assignee_id');
     }
 }

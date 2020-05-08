@@ -40,6 +40,6 @@ class User extends Authenticatable
     // Relationships
     public function tickets()
     {
-        return $this->hasMany('App\Ticket');
+        return $this->hasMany('App\Ticket', 'assignee_id');
     }
 }
