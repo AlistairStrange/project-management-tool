@@ -20,3 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Tickets Resource
+Route::resource('ticket', 'TicketsController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+

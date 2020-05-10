@@ -4,13 +4,10 @@ module.exports = {
     './resources/css/**/*.css',
   ],
   theme: {
-    extend: {
-      fontFamily: { sans: ['Inter var'] },
-    }
+    extend: {}
   },
   variants: {},
   plugins: [
-    require('@tailwindcss/custom-forms'),
-    require('@tailwindcss/ui'),
+    require('@tailwindcss/custom-forms')
   ]
 }
