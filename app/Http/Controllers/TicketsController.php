@@ -19,7 +19,7 @@ class TicketsController extends Controller
         $inProgressTickets = Ticket::InProgress()->get();
         $qualityAssuranceTickets = Ticket::QualityAssurance()->get();
         $inReviewTickets = Ticket::InReview()->get();
-        $closedTickets = Ticket::Open()->get();
+        $closedTickets = Ticket::Closed()->get();
 
         return view('tickets.index', [
             'openTickets' => $openTickets,
