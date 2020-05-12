@@ -9,6 +9,7 @@ class Ticket extends Model
     protected $fillable = [
         'subject',
         'description',
+        'priority',
         'reporter_id',
         'assignee',
         'contact',
@@ -33,36 +34,42 @@ class Ticket extends Model
     public function scopeOpen($query)
     {
         return $query->where('status', 'Open')
+            ->orderBy('priority', 'desc')
             ->orderBy('id', 'asc');
     }
 
     public function scopeInProgress($query)
     {
         return $query->where('status', 'In Progress')
+            ->orderBy('priority', 'desc')
             ->orderBy('id', 'asc');
     }
 
     public function scopeQualityAssurance($query)
     {
         return $query->where('status', 'QA')
+            ->orderBy('priority', 'desc')
             ->orderBy('id', 'asc');
     }
 
     public function scopeInReview($query)
     {
         return $query->where('status', 'In Review')
+            ->orderBy('priority', 'desc')
             ->orderBy('id', 'asc');
     }
 
     public function scopeClosed($query)
     {
         return $query->where('status', 'Closed')
+            ->orderBy('priority', 'desc')
             ->orderBy('id', 'asc');
     }
 
     public function scopeRejected($query)
     {
         return $query->where('status', 'Rejected')
+            ->orderBy('priority', 'desc')
             ->orderBy('id', 'asc');
     }
 }
