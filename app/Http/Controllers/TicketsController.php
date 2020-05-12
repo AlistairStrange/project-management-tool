@@ -108,4 +108,62 @@ class TicketsController extends Controller
     {
         //
     }
+
+    /**
+     * Changig 'status' of the ticket
+     * Moving ticket forward from Open up to Closed
+     * Throws an error for 'Closed' (last status - no moving forward)
+     *
+     * @param Ticket $ticket
+     * @return void
+     */
+    public function nextStatus(Ticket $ticket)
+    {
+        switch ($ticket->status) {
+            case 'Open':
+                // do smth
+                break;
+            case 'In Progress':
+                // do smth
+                break;
+            case 'QA':
+                // do smth
+                break;
+            case 'In Review':
+                // do smth
+                break;
+            case 'Closed':
+                // throw an error
+                break;
+        }
+    }
+
+    /**
+     * Changing 'status' of the ticket
+     * Moving ticket backwards from Closed up to Open
+     * Throws an error for 'Open' (first status - no moving backwards)
+     *
+     * @param Ticket $ticket
+     * @return void
+     */
+    public function prevStatus(Ticket $ticket)
+    {
+        switch ($ticket->status) {
+            case 'Open':
+                // throw an error
+                break;
+            case 'In Progress':
+                // do smth
+                break;
+            case 'QA':
+                // do smth
+                break;
+            case 'In Review':
+                // do smth
+                break;
+            case 'Closed':
+                // do smth
+                break;
+        }
+    }
 }
