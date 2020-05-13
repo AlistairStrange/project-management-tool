@@ -12,7 +12,7 @@
                        <!-- Comment -->
                        <!-- etc -->
                         <ul class="grid grid-cols-1 items-center divide-y divide-gray-400 text-white">
-                            <a href="#">
+                            <a href="{{ route('edit-ticket', $ticket->id) }}">
                                 <li class="m-4 col-span-1">
                                     Edit
                                 </li>
