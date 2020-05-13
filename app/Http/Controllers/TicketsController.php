@@ -81,9 +81,11 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Ticket $ticket)
     {
-        //
+        $editTicket = Ticket::findOrFail($ticket->id);
+
+        return view('tickets.edit', ['ticket' => $editTicket]);
     }
 
     /**
@@ -104,7 +106,7 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Ticket $ticket)
     {
         //
     }

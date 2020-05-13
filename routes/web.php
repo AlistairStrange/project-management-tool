@@ -22,7 +22,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Tickets Resource
-Route::resource('ticket', 'TicketsController');
+Route::resource('ticket', 'TicketsController')->names([
+    'create' => 'create-ticket',
+    'edit' => 'edit-ticket',
+    'index' => 'tickets',
+]);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
