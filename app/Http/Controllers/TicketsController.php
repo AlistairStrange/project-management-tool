@@ -55,8 +55,8 @@ class TicketsController extends Controller
             'assignee' => $request->assignee,
             'reporter_id' => isset(Auth::user()->id) ? Auth::user()->id : 1,
             'contact' => $request->contact,
+            'priority' => $request->priority,
             'deadline' => $request->deadline,
-
         ]);
 
         $ticket->save();
