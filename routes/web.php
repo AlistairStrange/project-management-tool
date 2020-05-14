@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Ticket Manual Routes
+Route::get('status-next/{ticket}', 'TicketsController@nextStatus')->name('status-next');
+Route::get('status-previous/{ticket}', 'TicketsController@prevStatus')->name('status-previous');
+
 // Tickets Resource
 Route::resource('ticket', 'TicketsController')->names([
     'create' => 'create-ticket',
@@ -30,4 +34,3 @@ Route::resource('ticket', 'TicketsController')->names([
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
