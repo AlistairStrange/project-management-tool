@@ -95,9 +95,18 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Ticket $ticket)
     {
-        //
+        $ticket->update([
+            'subject' => $request->subject,
+            'description' => $request->description,
+            'assignee' => $request->assignee,
+            'contact' => $request->contact,
+            'deadline' => $request->deadline,
+            'priority' => $request->priority,
+        ]);
+
+        return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' successfully updated!');
     }
 
     /**
@@ -108,7 +117,9 @@ class TicketsController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
-        //
+        $ticket->delete();
+
+        return redirect()->route('tickets')->with('status', 'Ticket successfully deleted');
     }
 
     /**
@@ -123,21 +134,28 @@ class TicketsController extends Controller
     {
         switch ($ticket->status) {
             case 'Open':
-                // do smth
+                // Change status from Open to In Progress
+                $ticket->update(['status' => 'In Progress']);
                 break;
             case 'In Progress':
-                // do smth
+                // Change status from In Progress to Quality Assurance
+                $ticket->update(['status' => 'QA']);
                 break;
             case 'QA':
-                // do smth
+                // Change status from Quality Assurance to In Review
+                $ticket->update(['status' => 'In Review']);
                 break;
             case 'In Review':
-                // do smth
+                // Change status from In Review to Closed
+                $ticket->update(['status' => 'Closed']);
                 break;
             case 'Closed':
-                // throw an error
+                // throw an error because Closed is the last status
+                return redirect()->route('tickets')->with('error', 'You cannot move ticket from Closed to the next status category. Only back to open');
                 break;
         }
+
+        return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
     }
 
     /**
@@ -152,20 +170,28 @@ class TicketsController extends Controller
     {
         switch ($ticket->status) {
             case 'Open':
-                // throw an error
+                // throw an error because you can't move ticket more backwards
+                return redirect()->route('tickets')->with('error', 'Ticket cannot be moved more backwards. Open status is starting position');
                 break;
             case 'In Progress':
-                // do smth
+                // Moves ticket back to Open
+                $ticket->update(['status' => 'Open']);
                 break;
             case 'QA':
-                // do smth
+                // Moves the ticket back to In Progress
+                $ticket->update(['status' => 'In Progress']);
                 break;
             case 'In Review':
-                // do smth
+                // Moves ticket back to QA
+                $ticket->update(['status' => 'QA']);
                 break;
             case 'Closed':
-                // do smth
+                // Back to In Progress
+                $ticket->update(['status' => 'In Progress']);
+                return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' needs more work, so it was moved back to ' . $ticket->status);
                 break;
-        }
+            }
+
+        return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
     }
 }
