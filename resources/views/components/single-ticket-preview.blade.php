@@ -1,5 +1,5 @@
 <div class="container mx-auto">
-    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 text-gray-700 mx-4 mt-3 float-left">
+    <div class="border hover:border-purple-300 max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 text-gray-700 mx-4 mt-3 float-left">
     
         <div class="float-left py-2 pl-2">
             @switch($ticket->priority)
@@ -50,19 +50,19 @@
             <!-- TICKET NAVIGATION -->
             <!-- Moving ticket to adjacent status -->
             @if (isset($ticket->status) && $ticket->status === 'Open') 
-                <a href="#" >
+                <a href="{{ route('status-next', $ticket->id) }}" >
                     <p class="bg-gray-400 text-lg text-center text-white px-6">🠪</p>
                 </a>
             @elseif (isset($ticket->status) && $ticket->status === 'Closed')
-                <a href="#" >
+                <a href="{{ route('status-previous', $ticket->id) }}" >
                     <p class="bg-gray-400 text-lg text-center text-white px-6">⟲</p>
                 </a>
             @else
-                <a href="#" >
+                <a href="{{ route('status-previous', $ticket->id) }}" >
                     <p class="bg-gray-400 text-lg text-center text-white w-1/2 float-left border-r border-white">🠨</p>
                 </a>
     
-                <a href="#">
+                <a href="{{ route('status-next', $ticket->id) }}">
                     <p class="bg-gray-400 text-lg text-center text-white w-1/2 float-right">🠪</p>
                 </a>
             @endif
