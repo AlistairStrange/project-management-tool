@@ -24,11 +24,13 @@
                                 </li>
                             </a>
     
-                            <a href="#">
+                            <form action="{{ route('ticket.destroy', $ticket->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
                                 <li class="m-4 col-span-1">
-                                    Reject
+                                    <button type="submit">Delete</button>
                                 </li>
-                            </a>
+                            </form>
     
                             <a href="#">
                                 <li class="m-4 col-span-1">
