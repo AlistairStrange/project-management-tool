@@ -71,7 +71,7 @@
 
     <div class="mt-5 mb-5 float-right">
         <button type="submit" class="bg-teal-500 hover:bg-blue-700 text-white font-bold p-3 rounded float-right my-1">
-            Create
+            {{ isset($ticket) ? 'Update' : 'Create' }}
         </button>
     </div>
 </form>
