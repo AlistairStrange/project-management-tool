@@ -21,9 +21,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Search with autosuggestion
+Route::post('/users/getUsers/','UsersController@getUsers')->name('search-users');
+
 // Ticket Manual Routes
 Route::get('status-next/{ticket}', 'TicketsController@nextStatus')->name('status-next');
 Route::get('status-previous/{ticket}', 'TicketsController@prevStatus')->name('status-previous');
+Route::get('my-tickets', 'TicketsController@indexOnlySelectedTickets')->name('my-tickets');
 
 // Tickets Resource
 Route::resource('ticket', 'TicketsController')->names([
