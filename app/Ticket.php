@@ -13,8 +13,8 @@ class Ticket extends Model
         'subject',
         'description',
         'priority',
-        'reporter_id',
-        'assignee',
+        'reporter',
+        'assignee_id',
         'contact',
         'deadline',
         'status',
@@ -23,7 +23,7 @@ class Ticket extends Model
     // Relationships
     public function user()
     {
-        return $this->belongsTo('App\User', 'reporter_id');
+        return $this->belongsTo('App\User', 'assignee_id');
     }
 
     /**
