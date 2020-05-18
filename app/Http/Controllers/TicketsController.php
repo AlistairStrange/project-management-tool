@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TicketsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,19 +22,24 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $openTickets = Ticket::Open()->get();
-        $inProgressTickets = Ticket::InProgress()->get();
-        $qualityAssuranceTickets = Ticket::QualityAssurance()->get();
-        $inReviewTickets = Ticket::InReview()->get();
-        $closedTickets = Ticket::Closed()->get();
+        $tickets = $this->getTickets();
 
-        return view('tickets.index', [
-            'openTickets' => $openTickets,
-            'inProgressTickets' => $inProgressTickets,
-            'qualityAssuranceTickets' => $qualityAssuranceTickets,
-            'inReviewTickets' => $inReviewTickets,
-            'closedTickets' => $closedTickets,
-        ]);
+        return view('tickets.index', $tickets);
+    }
+
+    /**
+     * Returns only tickets assigned to the user
+     * Depends on selection of the user from within of the index views
+     * either he choos eall tickets -> called standard index methods
+     * or he selects "Only my tickets" ->called this functuin
+     *
+     * @return void
+     */
+    public function indexOnlySelectedTickets()
+    {
+        $tickets = $this->getTickets(Auth::user());
+
+        return view('tickets.index', $tickets);
     }
 
     /**
@@ -49,11 +61,13 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd();
+
         $ticket = Ticket::create([
             'subject' => $request->subject,
             'description' => $request->description,
-            'assignee' => $request->assignee,
-            'reporter_id' => isset(Auth::user()->id) ? Auth::user()->id : 1,
+            'assignee_id' => $request->assignee,
+            'reporter' => isset(Auth::user()->email) ? Auth::user()->email : "bot@user.com",
             'contact' => $request->contact,
             'priority' => $request->priority,
             'deadline' => $request->deadline,
@@ -100,7 +114,7 @@ class TicketsController extends Controller
         $ticket->update([
             'subject' => $request->subject,
             'description' => $request->description,
-            'assignee' => $request->assignee,
+            // 'assignee_id' => $request->assignee,
             'contact' => $request->contact,
             'deadline' => $request->deadline,
             'priority' => $request->priority,
@@ -193,5 +207,35 @@ class TicketsController extends Controller
             }
 
         return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
+    }
+
+    private function getTickets(User $user = null)
+    {
+        if(isset($user) && $user === Auth::user()) {
+            // get tickets only for logged user (assigned)
+            $openTickets = $user->tickets()->Open()->get();
+            $inProgressTickets = $user->tickets()->InProgress()->get();
+            $qualityAssuranceTickets = $user->tickets()->QualityAssurance()->get();
+            $inReviewTickets = $user->tickets()->InReview()->get();
+            $closedTickets = $user->tickets()->Closed()->get();
+            $btnAll = 0;
+        } else {
+            // Get all tickets of the project board
+            $openTickets = Ticket::Open()->get();
+            $inProgressTickets = Ticket::InProgress()->get();
+            $qualityAssuranceTickets = Ticket::QualityAssurance()->get();
+            $inReviewTickets = Ticket::InReview()->get();
+            $closedTickets = Ticket::Closed()->get();
+            $btnAll = 1;
+        }
+
+        return [
+            'openTickets' => $openTickets,
+            'inProgressTickets' => $inProgressTickets,
+            'qualityAssuranceTickets' => $qualityAssuranceTickets,
+            'inReviewTickets' => $inReviewTickets,
+            'closedTickets' => $closedTickets,
+            'btnAll' => $btnAll,
+        ];
     }
 }
