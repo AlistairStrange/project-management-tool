@@ -114,7 +114,7 @@ class TicketsController extends Controller
         $ticket->update([
             'subject' => $request->subject,
             'description' => $request->description,
-            // 'assignee_id' => $request->assignee,
+            'assignee_id' => $request->assignee,
             'contact' => $request->contact,
             'deadline' => $request->deadline,
             'priority' => $request->priority,
