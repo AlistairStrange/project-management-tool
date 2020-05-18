@@ -27,12 +27,12 @@ class CreateTicketsTable extends Migration
             ])->default('Open');
             $table->date('deadline');
             $table->string('contact'); // email address
-            $table->string('assignee'); // email address
+            $table->string('reporter'); // email address
             $table->timestamps();
 
             // Relationships assignee
-            $table->bigInteger('reporter_id')->unsigned();
-            $table->foreign('reporter_id')->references('id')
+            $table->bigInteger('assignee_id')->unsigned();
+            $table->foreign('assignee_id')->references('id')
                 ->on('users');
         });
     }
@@ -45,7 +45,7 @@ class CreateTicketsTable extends Migration
     public function down()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->dropForeign('tickets_reporter_id_foreign');
+            $table->dropForeign('tickets_assignee_id_foreign');
         });
 
         Schema::dropIfExists('tickets');
