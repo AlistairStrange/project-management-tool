@@ -29,9 +29,20 @@
             <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="assignee">
                 Assign To
             </label>
+            
+             <!-- For defining autocomplete -->
             <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="email" id='user_search' placeholder="marek.jankovic@henkel.com">
+
+            <!-- For displaying selected option value from autocomplete suggestion -->
+            <input hidden class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" 
+            id='userid' readonly name="assignee" value="{{ isset($ticket) ? $ticket->assignee : null }}">  
+
+            <!-- <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="assignee" name="assignee" 
-            type="email" placeholder="Assign to marek@jankovic.site" value="{{ isset($ticket) ? $ticket->assignee : null }}">
+            type="email" placeholder="Assign to marek@jankovic.site" value="{{ isset($ticket) ? $ticket->assignee : null }}"> -->
+
         </div>
 
         <div class="mb-3">
