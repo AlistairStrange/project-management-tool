@@ -32,12 +32,13 @@
             
              <!-- For defining autocomplete -->
             <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
-            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="email" id='user_search' placeholder="marek.jankovic@henkel.com">
+            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="email" id='user_search' 
+            value="{{ isset($ticket) ? $ticket->user->email : null }}" placeholder="marek.jankovic@henkel.com">
 
             <!-- For displaying selected option value from autocomplete suggestion -->
             <input hidden class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" 
-            id='userid' readonly name="assignee" value="{{ isset($ticket) ? $ticket->assignee : null }}">  
+            id='userid' readonly name="assignee" value="{{ isset($ticket) ? $ticket->user->id : null }}">  
 
             <!-- <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="assignee" name="assignee" 
