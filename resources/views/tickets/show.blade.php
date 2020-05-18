@@ -61,12 +61,12 @@
                        <div class="grid grid-rows-1 grid-flow-col flex items-center">
                            <div class="text-sm col-span-1">
                                <strong>Reporter: </strong>
-                               <p class="text-gray-900 leading-none">{{ $ticket->user->email }}</p>
+                               <p class="text-gray-900 leading-none">{{ $ticket->reporter }}</p>
                            </div>
 
                            <div class="text-sm col-span-1">
                                <strong>Assignee: </strong>
-                               <p class="text-gray-900 leading-none">{{ $ticket->assignee }}</p>
+                               <p class="text-gray-900 leading-none">{{ $ticket->user->email }}</p>
                            </div>
 
                            <div class="text-sm col-span-1">
