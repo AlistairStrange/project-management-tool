@@ -17,6 +17,8 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/smoothness/jquery-ui.css" />
+    
+    @yield('css')
 </head>
 
 <body class="bg-gray-100 h-screen antialiased leading-none">

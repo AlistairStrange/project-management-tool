@@ -54,9 +54,11 @@
                                {{ $ticket->subject }}
                                
                            </div>
-                           <p class="text-gray-700 text-base">
-                               {{ $ticket->description }}
-                           </p>
+                           
+                           <p class="trix-content">
+                               {!! $ticket->description !!}
+                            </p>
+                           
                        </div>
 
                        <div class="grid grid-rows-1 grid-flow-col flex items-center">

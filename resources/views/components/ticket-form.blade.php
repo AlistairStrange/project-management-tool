@@ -19,9 +19,10 @@
         <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="subject">
             Description
         </label>
-        <textarea class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
-        text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="description"
-            id="description" cols="30" rows="10">{{ isset($ticket) ? $ticket->description : 'Description of the ticket'}}</textarea>
+        
+        <!-- TRIX rich text editor in place -->
+        <input id="description" type="hidden" name="description" value="{{ isset($ticket) ? $ticket->description : null}}">
+        <trix-editor class="text-gray-500 text-sm leading-snug focus:border-purple-500 border-2 border-gray-300" input="description"></trix-editor>
     </div>
 
     <div>
@@ -39,10 +40,6 @@
             <input hidden class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" 
             id='userid' readonly name="assignee" value="{{ isset($ticket) ? $ticket->user->id : null }}">  
-
-            <!-- <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
-            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="assignee" name="assignee" 
-            type="email" placeholder="Assign to marek@jankovic.site" value="{{ isset($ticket) ? $ticket->assignee : null }}"> -->
 
         </div>
 

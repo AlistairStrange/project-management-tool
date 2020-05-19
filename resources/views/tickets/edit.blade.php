@@ -1,3 +1,7 @@
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/trix.css') }}">
+@endsection
+
 @extends('layouts.app')
 
 @section('content')
