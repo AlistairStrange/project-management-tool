@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Input\Input;
 
 class TicketsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function test() {
+        return view ('tickets.test');
     }
 
 
@@ -61,8 +67,11 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd();
-
+        // if($request->hasFile('file')) {
+        //     dd($request);
+        //     $this->fileUpload($request->file('file'));
+        // }
+        
         $ticket = Ticket::create([
             'subject' => $request->subject,
             'description' => $request->description,
@@ -72,6 +81,11 @@ class TicketsController extends Controller
             'priority' => $request->priority,
             'deadline' => $request->deadline,
         ]);
+
+        // File storing to Media table -> id of the Ticket is used as an "model_id" on the media table
+        foreach($request->input('attachment', []) as $file) {
+            $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachment');
+        }
 
         $ticket->save();
 
@@ -99,7 +113,10 @@ class TicketsController extends Controller
     {
         $editTicket = Ticket::findOrFail($ticket->id);
 
-        return view('tickets.edit', ['ticket' => $editTicket]);
+        // retrieving attachments from the media library -> further process in _fieupload.blade.php
+        $editTicket->attachment = $editTicket->getMedia('attachment');
+
+        return view('tickets.edit', ['ticket' => $editTicket,]);
     }
 
     /**
@@ -119,6 +136,28 @@ class TicketsController extends Controller
             'deadline' => $request->deadline,
             'priority' => $request->priority,
         ]);
+        
+        // Retrieving all attachments for ticket which is being edited
+        $ticket->attachment = $ticket->getMedia('attachment');
+
+        // Checking if project has any attachments and if yes then if they are the same
+        // If not the same, we delete the record of it in DB
+        if (count($ticket->attachment) > 0) {
+            foreach ($ticket->attachment as $file) {
+                if (!in_array($file->file_name, $request->input('attachment', []))) {
+                    $file->delete();
+                }
+            }
+        }
+        // ???
+        $file = $ticket->attachment->pluck('file_name')->toArray();
+
+        // ??? Adding newly attached files
+        foreach ($request->input('attachment', []) as $item) {
+            if (count($file) === 0 || !in_array($item, $file)) {
+                $ticket->addMedia(storage_path('tmp/uploads/' . $item))->toMediaCollection('attachment');
+            }
+        }
 
         return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' successfully updated!');
     }
@@ -134,6 +173,26 @@ class TicketsController extends Controller
         $ticket->delete();
 
         return redirect()->route('tickets')->with('status', 'Ticket successfully deleted');
+    }
+
+    public function fileUpload(Request $request)
+    {
+        $path = storage_path('tmp/uploads');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+    
+        $file = $request->file('file');
+    
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+    
+        $file->move($path, $name);
+    
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
     }
 
     /**

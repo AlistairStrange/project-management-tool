@@ -13,7 +13,7 @@ require('laravel-mix-tailwind');
  |
  */
 
-mix.js(['resources/js/app.js', 'public/js/trix.js',], 'public/js')
+mix.js(['resources/js/app.js', 'public/js/trix.js', ], 'public/js')
    .postCss('resources/css/app.css', 'public/css')
    .tailwind('./tailwind.config.js');
    

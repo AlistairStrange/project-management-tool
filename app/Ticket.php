@@ -3,11 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+// use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Ticket extends Model
+class Ticket extends Model implements HasMedia
 {
     use SoftDeletes;
+    use HasMediaTrait;
 
     protected $fillable = [
         'subject',
@@ -25,6 +29,7 @@ class Ticket extends Model
     {
         return $this->belongsTo('App\User', 'assignee_id');
     }
+
 
     /**
      * Local Scope functions for retrieving tickets based on status

@@ -1,9 +1,9 @@
+@extends('layouts.app')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/trix.css') }}">
+<link href="{{ asset('css/upload.css') }}" rel="stylesheet">
 @endsection
-
-
-@extends('layouts.app')
 
 @section('content')
    <div class="grid grid-flow-row">
@@ -18,5 +18,5 @@
 
    <!-- JQUERY script for search & filter users -->
    @include('partials._usersearch')
-
+   @include('partials._fileupload')
 @endsection
