@@ -57,29 +57,44 @@
                            
                            <p class="trix-content">
                                {!! $ticket->description !!}
-                            </p>
+                           </p>
+
+                        <div class="text-sm col-span-1 text-gray-700 mt-8">
+                            <p class="font-semibold">Attachments: </p>
+
+                            @foreach($ticket->attachments as $file)
+                                <ul>
+                                    <li class="text-gray-600 leading-none">
+                                       <a href="{{ $file->downloadPath }}" download>
+                                        ⭳  {{ $file->file_name }}
+                                       </a>
+                                    </li>
+                                </ul>
+                            @endforeach
+                         </div>
+
                            
                        </div>
 
                        <div class="grid grid-rows-1 grid-flow-col flex items-center">
                            
-                           <div class="text-sm col-span-1">
-                               <strong>Assignee: </strong>
-                               <p class="text-gray-900 leading-none">{{ $ticket->user->email }}</p>
+                           <div class="text-sm col-span-1 text-gray-700">
+                               <p class="font-semibold">Assignee: </p>
+                               <p class="text-gray-600 leading-none">{{ $ticket->user->email }}</p>
                             </div>
                             
-                            <div class="text-sm col-span-1">
-                                <strong>Contact: </strong>
-                                <p class="text-gray-900 leading-none">{{ $ticket->contact }}</p>
+                            <div class="text-sm col-span-1 text-gray-700">
+                                <p class="font-semibold">Contact: </p>
+                                <p class="text-gray-600 leading-none">{{ $ticket->contact }}</p>
                             </div>
 
-                            <div class="text-sm col-span-1">
-                                <strong>Reporter: </strong>
-                                <p class="text-gray-900 leading-none">{{ $ticket->reporter }}</p>
+                            <div class="text-sm col-span-1 text-gray-700">
+                                <p class="font-semibold">Reporter: </p>
+                                <p class="text-gray-600 leading-none">{{ $ticket->reporter }}</p>
                             </div>
 
-                           <div class="text-sm col-span-1">
-                               <strong>Deadline: </strong>
+                           <div class="text-sm col-span-1 text-gray-700">
+                               <p class="font-semibold">Deadline: </p>
                                <p class="text-gray-600">{{ $ticket->deadline }}</p>
                            </div>
                        </div>

@@ -100,6 +100,14 @@ class TicketsController extends Controller
      */
     public function show(Ticket $ticket)
     {
+        // retrieving attachments associated with ticket
+        $ticket->attachments = $ticket->getMedia('attachment');
+
+        // Creating new attribute for each attachment -> url for download
+        foreach($ticket->attachments as $file) {
+            $file->downloadPath = $file->getFullUrl();
+        }
+
         return view('tickets.show', ['ticket' => $ticket]);
     }
 
