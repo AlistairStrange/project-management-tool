@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
+use App\Http\Requests\CreateTicketValidator;
 
 class TicketsController extends Controller
 {
@@ -65,7 +66,7 @@ class TicketsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTicketValidator $request)
     {
         // if($request->hasFile('file')) {
         //     dd($request);
