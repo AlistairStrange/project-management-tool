@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Ticket::class, function (Faker $faker) {
     $prio = rand(0, 4);
     $status = rand(0, 4);
+    $board = rand(1,4);
 
     return [
         'subject' => $faker->text(100),
@@ -18,5 +19,6 @@ $factory->define(Ticket::class, function (Faker $faker) {
         'contact' => $faker->companyEmail,
         'deadline' => $faker->date(),
         'status' => ['Open', 'In Progress', 'QA', 'In Review', 'Closed'][$status],
+        'project_board_id' => $board,
     ];
 });
