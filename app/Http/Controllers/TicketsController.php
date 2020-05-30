@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
 use App\Http\Requests\CreateTicketValidator;
+use App\Http\Requests\UpdateTicketValidator;
 
 class TicketsController extends Controller
 {
@@ -135,7 +136,7 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update(Request $request, UpdateTicketValidator $ticket)
     {
         $ticket->update([
             'subject' => $request->subject,
