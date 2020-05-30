@@ -30,6 +30,11 @@ class Ticket extends Model implements HasMedia
         return $this->belongsTo('App\User', 'assignee_id');
     }
 
+    public function projectBoard()
+    {
+        return $this->belongsTo('App\ProjectBoard');
+    }
+
 
     /**
      * Local Scope functions for retrieving tickets based on status
