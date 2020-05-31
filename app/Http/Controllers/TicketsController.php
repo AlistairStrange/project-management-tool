@@ -18,11 +18,6 @@ class TicketsController extends Controller
         $this->middleware('auth');
     }
 
-    public function test() {
-        return view ('tickets.test');
-    }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -109,6 +104,9 @@ class TicketsController extends Controller
         foreach($ticket->attachments as $file) {
             $file->downloadPath = $file->getFullUrl();
         }
+
+        // Retrieving Project board of a ticket
+        $ticket->project = $ticket->projectBoard->abbreviation;
 
         return view('tickets.show', ['ticket' => $ticket]);
     }
