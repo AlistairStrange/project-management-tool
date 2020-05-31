@@ -48,7 +48,7 @@
                    <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                        <div class="mb-8">
                            <p class="text-sm text-gray-600 flex items-center">
-                           Ticket ID: {{ $ticket->id }}
+                           {{ $ticket->project . '-' . $ticket->id }}
                            </p>
                            <div class="text-gray-900 font-bold text-xl mb-2">
                                {{ $ticket->subject }}
