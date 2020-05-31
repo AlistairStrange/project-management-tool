@@ -14,7 +14,9 @@ class ProjectBoardController extends Controller
      */
     public function index()
     {
-        //
+        $projects = ProjectBoard::all();
+        
+        return $projects;
     }
 
     /**
@@ -24,7 +26,8 @@ class ProjectBoardController extends Controller
      */
     public function create()
     {
-        //
+        // Redirect to create a new Project Board
+        return view('projects.create');
     }
 
     /**
@@ -35,18 +38,28 @@ class ProjectBoardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $project = ProjectBoard::create([
+            'name' => $request->name,
+            'abbreviation' => $request->abbreviation,
+            'description' => $request->description,
+        ]);
+
+        $project->save();
+
+        return redirect()->back()->with('status', 'New Project Board created successfully');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resourpce.
      *
      * @param  \App\ProjectBoard  $projectBoard
      * @return \Illuminate\Http\Response
      */
-    public function show(ProjectBoard $projectBoard)
+    public function show($id)
     {
-        //
+        $project = ProjectBoard::findOrFail($id);
+        
+        return view('projects.show', ['project' => $project]);
     }
 
     /**
@@ -55,9 +68,11 @@ class ProjectBoardController extends Controller
      * @param  \App\ProjectBoard  $projectBoard
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProjectBoard $projectBoard)
+    public function edit($id)
     {
-        //
+        $project = ProjectBoard::findOrFail($id);
+
+        return view('projects.edit', ['project' => $project]);
     }
 
     /**
@@ -67,9 +82,13 @@ class ProjectBoardController extends Controller
      * @param  \App\ProjectBoard  $projectBoard
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProjectBoard $projectBoard)
+    public function update(Request $request, $id)
     {
-        //
+        $project = ProjectBoard::findOrFail($id);
+
+        $project->update($request->all());
+
+        return redirect()->route('project.show', $project->id)->with('status', 'Project Board successfully updated!');
     }
 
     /**
@@ -78,8 +97,12 @@ class ProjectBoardController extends Controller
      * @param  \App\ProjectBoard  $projectBoard
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProjectBoard $projectBoard)
+    public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        $project->delete();
+
+        return redirect()->route('home')->with('status', 'Ticket successfully deleted');
     }
 }

@@ -9,6 +9,7 @@ class ProjectBoard extends Model
     protected $fillable = [
         'name',
         'description',
+        'abbreviation',
     ];
 
     // Relationships

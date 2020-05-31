@@ -16,6 +16,7 @@ class CreateProjectBoardsTable extends Migration
         Schema::create('project_boards', function (Blueprint $table) {
             $table->id();
             $table->text('name');
+            $table->text('abbreviation');
             $table->text('description');
             $table->timestamps();
         });

@@ -37,6 +37,10 @@ Route::resource('ticket', 'TicketsController')->names([
     'edit' => 'edit-ticket',
     'index' => 'tickets',
 ]);
+
+// Project Resource
+Route::resource('project', 'ProjectBoardController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

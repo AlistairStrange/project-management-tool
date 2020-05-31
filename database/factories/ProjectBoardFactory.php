@@ -10,5 +10,6 @@ $factory->define(ProjectBoard::class, function (Faker $faker) {
     return [
         'name' => $faker->text(25),
         'description' => $faker->text(100),
+        'abbreviation' => $faker->regexify('[A-Z]{4}'),
     ];
 });
