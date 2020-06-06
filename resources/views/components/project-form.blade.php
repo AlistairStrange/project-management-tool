@@ -34,16 +34,14 @@
             </label>
             
             <textarea class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
-            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="description" cols="10" rows="5">{{ $project->description }}</textarea>
+            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="description" cols="10" rows="5">{{ isset($project) ? $project->description : null }}</textarea>
         </div>
 
-
-        <div class="float-right col-span-2 ">
-            <div class="mt-5 mb-5 float-right">
-                <button type="submit" class="bg-teal-500 hover:bg-blue-700 text-white font-bold p-3 rounded my-1">
-                    {{ isset($project) ? 'Update' : 'Create' }}
-                </button>
-            </div>
+        <div class="mt-5 mb-5 float-right">
+            <button type="submit" class="bg-teal-500 hover:bg-blue-700 text-white font-bold p-3 rounded my-1">
+                {{ isset($project) ? 'Update' : 'Create' }}
+            </button>
         </div>
+        
     </div>
 </form>
