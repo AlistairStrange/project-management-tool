@@ -3,19 +3,22 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Http\Controllers\ProjectBoardController;
 
 class TicketForm extends Component
 {
     public $ticket = "";
+    public $projects = "";
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($ticket = null)
+    public function __construct($ticket = null, $projects = null)
     {
         $this->ticket = $ticket;
+        $this->projects = $projects;
     }
 
     /**
