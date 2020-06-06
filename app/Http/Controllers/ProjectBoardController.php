@@ -16,7 +16,7 @@ class ProjectBoardController extends Controller
     {
         $projects = ProjectBoard::all();
         
-        return $projects;
+        return view('projects.index', ['projects' => $projects]);
     }
 
     /**
@@ -99,10 +99,22 @@ class ProjectBoardController extends Controller
      */
     public function destroy($id)
     {
-        $project = Project::findOrFail($id);
+        $project = ProjectBoard::findOrFail($id);
 
         $project->delete();
 
         return redirect()->route('home')->with('status', 'Ticket successfully deleted');
+    }
+
+    /**
+     * Fetching list of all project boards - used while createing/updating tickets
+     *
+     * @return void
+     */
+    public function getProjects()
+    {
+        $projects = ProjectBoard::all();
+        
+        return $projects;
     }
 }
