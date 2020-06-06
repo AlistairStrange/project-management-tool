@@ -30,6 +30,7 @@ class CreateTicketValidator extends FormRequest
             'contact' => 'required|email',
             'deadline' => 'nullable|date',
             'priority' => 'required',
+            'project' => 'required|integer',
         ];
     }
 }
