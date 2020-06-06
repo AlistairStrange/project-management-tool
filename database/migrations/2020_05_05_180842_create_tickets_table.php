@@ -31,7 +31,7 @@ class CreateTicketsTable extends Migration
             $table->timestamps();
 
             // Relationships assignee
-            $table->bigInteger('assignee_id')->unsigned();
+            $table->bigInteger('assignee_id')->unsigned()->nullable();
             $table->foreign('assignee_id')->references('id')
                 ->on('users');
         });
