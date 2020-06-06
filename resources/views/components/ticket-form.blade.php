@@ -5,15 +5,39 @@
     @if(isset($ticket))
         @method('PUT')
     @endif
+    
+    <div class="grid grid-cols-4 gap-2">
+        <div class="col-span-1">
+            <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="project">
+                Project
+            </label>
 
-    <div class="mb-3">
-        <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="subject">
-            Subject
-        </label>
-        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
-        text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="subject" name="subject"
-         type="text" placeholder="Create new project management tool" value="{{ isset($ticket) ? $ticket->subject : null }}">
+            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-500 py-2 px-4 pr-8 rounded leading-tight
+            focus:outline-none focus:bg-white focus:border-purple-500" name="project" id="project">
+                @if(isset($projects))
+                    @foreach($projects as $project)
+                        <option value="{{ $project->id }}" {{ isset($ticket) && $ticket->project_board_id === $project->id ? 'selected' : '' }}>
+                            {{ $project->abbreviation }} - {{ $project->name }}
+                        </option>
+                    @endforeach
+                @else
+                    {{-- Empty text - no project available --}}
+                    <option value="0">n/a</option>
+                @endif
+            </select>
+        </div>
+
+        <div class="mb-3 col-span-3">
+            <label class="block text-gray-500 font-bold mb-2 md:mb-2" for="subject">
+                Subject
+            </label>
+    
+            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="subject" name="subject"
+             type="text" placeholder="Create new project management tool" value="{{ isset($ticket) ? $ticket->subject : null }}">
+        </div>
     </div>
+
 
     <div class="mb-3">
         <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="subject">
@@ -71,6 +95,7 @@
             <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="priority">
                 Priority
             </label>
+
             <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-500 py-2 px-4 pr-8 rounded leading-tight
                 focus:outline-none focus:bg-white focus:border-purple-500" name="priority" id="priority">
                 <option value="minimal" {{ isset($ticket) && $ticket->priority == 'minimal' ? 'selected' : '' }}>Minimal</option>
