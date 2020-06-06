@@ -56,7 +56,7 @@ class TicketsController extends Controller
     {
         // Fetching available project boards
         $projects = new ProjectBoardController();
-        $projects = $projects->index();
+        $projects = $projects->getProjects();
 
         // Redirect to create views
         return view('tickets.create', ['projects' => $projects]);
@@ -131,7 +131,7 @@ class TicketsController extends Controller
 
         // Fetching available project boards
         $projects = new ProjectBoardController();
-        $projects = $projects->index();
+        $projects = $projects->getProjects();
 
 
         // retrieving attachments from the media library -> further process in _fieupload.blade.php
@@ -152,11 +152,19 @@ class TicketsController extends Controller
         $ticket->update([
             'subject' => $request->subject,
             'description' => $request->description,
-            'assignee_id' => $request->assignee,
+            // 'assignee_id' => $request->assignee,
             'contact' => $request->contact,
             'deadline' => $request->deadline,
             'priority' => $request->priority,
         ]);
+
+        // Associating the ticket with specific user (assignee = owner)
+        $user = User::find($request->assignee);
+        $user->tickets()->save($ticket);
+
+        // Associating the ticket with specific project board
+        $project = ProjectBoard::find($request->project);
+        $project->tickets()->save($ticket);
         
         // Retrieving all attachments for ticket which is being edited
         $ticket->attachment = $ticket->getMedia('attachment');
