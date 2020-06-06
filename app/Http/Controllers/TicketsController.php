@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Ticket;
 use Carbon\Carbon;
+use App\ProjectBoard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
 use App\Http\Requests\CreateTicketValidator;
 use App\Http\Requests\UpdateTicketValidator;
+use App\Http\Controllers\ProjectBoardController;
 
 class TicketsController extends Controller
 {
@@ -52,8 +54,12 @@ class TicketsController extends Controller
      */
     public function create()
     {
+        // Fetching available project boards
+        $projects = new ProjectBoardController();
+        $projects = $projects->index();
+
         // Redirect to create views
-        return view('tickets.create');
+        return view('tickets.create', ['projects' => $projects]);
     }
 
     /**
@@ -63,28 +69,30 @@ class TicketsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateTicketValidator $request)
-    {
-        // if($request->hasFile('file')) {
-        //     dd($request);
-        //     $this->fileUpload($request->file('file'));
-        // }
-        
+    {       
         $ticket = Ticket::create([
             'subject' => $request->subject,
             'description' => $request->description,
-            'assignee_id' => $request->assignee,
             'reporter' => isset(Auth::user()->email) ? Auth::user()->email : "bot@user.com",
             'contact' => $request->contact,
             'priority' => $request->priority,
             'deadline' => $request->deadline,
         ]);
 
+        // Associating the ticket with specific user (assignee = owner)
+        $user = User::find($request->assignee);
+        $user->tickets()->save($ticket);
+
+        // Associating the ticket with specific project board
+        $project = ProjectBoard::find($request->project);
+        $project->tickets()->save($ticket);
+
         // File storing to Media table -> id of the Ticket is used as an "model_id" on the media table
         foreach($request->input('attachment', []) as $file) {
             $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachment');
         }
 
-        $ticket->save();
+
 
         return redirect()->back()->with('status', 'Ticket created successfully');
     }
@@ -121,10 +129,15 @@ class TicketsController extends Controller
     {
         $editTicket = Ticket::findOrFail($ticket->id);
 
+        // Fetching available project boards
+        $projects = new ProjectBoardController();
+        $projects = $projects->index();
+
+
         // retrieving attachments from the media library -> further process in _fieupload.blade.php
         $editTicket->attachment = $editTicket->getMedia('attachment');
 
-        return view('tickets.edit', ['ticket' => $editTicket,]);
+        return view('tickets.edit', ['ticket' => $editTicket, 'projects' => $projects,]);
     }
 
     /**
@@ -134,7 +147,7 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UpdateTicketValidator $ticket)
+    public function update(UpdateTicketValidator $request, Ticket $ticket)
     {
         $ticket->update([
             'subject' => $request->subject,
