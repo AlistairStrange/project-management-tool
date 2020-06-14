@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ProjectBoard;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateProjectValidator;
+use App\Http\Requests\UpdateProjectValidator;
 
 class ProjectBoardController extends Controller
 {
@@ -36,17 +38,17 @@ class ProjectBoardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProjectValidator $request)
     {
         $project = ProjectBoard::create([
-            'name' => $request->name,
-            'abbreviation' => $request->abbreviation,
+            'name' => ucfirst($request->name),
+            'abbreviation' => strtoupper($request->abbreviation),
             'description' => $request->description,
         ]);
 
         $project->save();
 
-        return redirect()->back()->with('status', 'New Project Board created successfully');
+        return redirect()->route('project.index')->with('status', 'New Project Board created successfully');
     }
 
     /**
@@ -82,7 +84,7 @@ class ProjectBoardController extends Controller
      * @param  \App\ProjectBoard  $projectBoard
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProjectValidator $request, $id)
     {
         $project = ProjectBoard::findOrFail($id);
 
