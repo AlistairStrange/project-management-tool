@@ -27,16 +27,21 @@ Route::post('/users/getUsers/','UsersController@getUsers')->name('search-users')
 Route::post('ticket/attachment', 'TicketsController@fileUpload')->name('tickets.upload');
 
 // Ticket Manual Routes
+Route::get('tickets/{project}', 'TicketsController@index')->name('tickets');
 Route::get('status-next/{ticket}', 'TicketsController@nextStatus')->name('status-next');
 Route::get('status-previous/{ticket}', 'TicketsController@prevStatus')->name('status-previous');
-Route::get('my-tickets', 'TicketsController@indexOnlySelectedTickets')->name('my-tickets');
+Route::get('my-tickets/{project}', 'TicketsController@indexOnlySelectedTickets')->name('my-tickets');
+
+// Ticket related to specific project board routes
+Route::get('board/{board}', 'TicketProjectController@index')->name('project-tickets');
+Route::get('project-my-tickets/{board}', 'TicketProjectController@indexOnlySelectedTickets')->name('project-my-tickets');
 
 // Tickets Resource
 Route::resource('ticket', 'TicketsController')->names([
     'create' => 'create-ticket',
     'edit' => 'edit-ticket',
-    'index' => 'tickets',
-]);
+    // 'index' => 'tickets',
+])->except('index');
 
 // Project Resource
 Route::resource('project', 'ProjectBoardController');
