@@ -25,11 +25,13 @@ class TicketsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($abbreviation)
     {
-        $tickets = $this->getTickets();
+        $project = ProjectBoard::firstWhere('abbreviation', $abbreviation);
 
-        return view('tickets.index', $tickets);
+        $tickets = $this->getTickets($project);
+
+        return view('tickets.index', $tickets)->with('abbreviation', $abbreviation);
     }
 
     /**
@@ -40,11 +42,14 @@ class TicketsController extends Controller
      *
      * @return void
      */
-    public function indexOnlySelectedTickets()
+    public function indexOnlySelectedTickets($abbreviation)
     {
-        $tickets = $this->getTickets(Auth::user());
+        $project = ProjectBoard::firstWhere('abbreviation', $abbreviation);
+        $user = Auth::user();
 
-        return view('tickets.index', $tickets);
+        $tickets = $this->getTickets($project, $user);
+
+        return view('tickets.index', $tickets)->with('abbreviation', $abbreviation);
     }
 
     /**
@@ -257,7 +262,7 @@ class TicketsController extends Controller
                 break;
         }
 
-        return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
+        return redirect()->back()->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
     }
 
     /**
@@ -294,28 +299,57 @@ class TicketsController extends Controller
                 break;
             }
 
-        return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
+        return redirect()->back()->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
     }
 
-    private function getTickets(User $user = null)
+    public function getTickets(ProjectBoard $project, User $user = null)
     {
-        if(isset($user) && $user === Auth::user()) {
-            // get tickets only for logged user (assigned)
-            $openTickets = $user->tickets()->Open()->get();
-            $inProgressTickets = $user->tickets()->InProgress()->get();
-            $qualityAssuranceTickets = $user->tickets()->QualityAssurance()->get();
-            $inReviewTickets = $user->tickets()->InReview()->get();
-            $closedTickets = $user->tickets()->Closed()->get();
+        if(isset($user)) {
+            // Get all tickets assinged to specific user from specific project board
+            $openTickets = $project->tickets()->where('assignee_id', $user->id)->Open()->get();
+            $inProgressTickets = $project->tickets()->where('assignee_id', $user->id)->InProgress()->get();
+            $qualityAssuranceTickets = $project->tickets()->where('assignee_id', $user->id)->QualityAssurance()->get();
+            $inReviewTickets = $project->tickets()->where('assignee_id', $user->id)->InReview()->get();
+            $closedTickets = $project->tickets()->where('assignee_id', $user->id)->Closed()->get();
             $btnAll = 0;
         } else {
-            // Get all tickets of the project board
-            $openTickets = Ticket::Open()->get();
-            $inProgressTickets = Ticket::InProgress()->get();
-            $qualityAssuranceTickets = Ticket::QualityAssurance()->get();
-            $inReviewTickets = Ticket::InReview()->get();
-            $closedTickets = Ticket::Closed()->get();
+            // Get all ticket from specific project board
+            $openTickets = $project->tickets()->Open()->get();
+            $inProgressTickets = $project->tickets()->InProgress()->get();
+            $qualityAssuranceTickets = $project->tickets()->QualityAssurance()->get();
+            $inReviewTickets = $project->tickets()->InReview()->get();
+            $closedTickets = $project->tickets()->Closed()->get();
             $btnAll = 1;
         }
+        
+
+        // if (isset($user) && $user === Auth::user()) {
+        //     // get tickets only for logged user (assigned)
+        //     $openTickets = $user->tickets()->Open()->get();
+        //     $inProgressTickets = $user->tickets()->InProgress()->get();
+        //     $qualityAssuranceTickets = $user->tickets()->QualityAssurance()->get();
+        //     $inReviewTickets = $user->tickets()->InReview()->get();
+        //     $closedTickets = $user->tickets()->Closed()->get();
+        //     $btnAll = 0;
+        // } elseif (isset($project)) {
+        //     // Get all ticket from specific project board
+        //     $openTickets = $project->tickets()->Open()->get();
+        //     $inProgressTickets = $project->tickets()->InProgress()->get();
+        //     $qualityAssuranceTickets = $project->tickets()->QualityAssurance()->get();
+        //     $inReviewTickets = $project->tickets()->InReview()->get();
+        //     $closedTickets = $project->tickets()->Closed()->get();
+        //     $btnAll = 1;
+        // } elseif (isset($project) && isset($user)) {
+        //     dd('user & project');
+        // } else {
+        //     // Get all tickets of all project boards
+        //     $openTickets = Ticket::Open()->get();
+        //     $inProgressTickets = Ticket::InProgress()->get();
+        //     $qualityAssuranceTickets = Ticket::QualityAssurance()->get();
+        //     $inReviewTickets = Ticket::InReview()->get();
+        //     $closedTickets = Ticket::Closed()->get();
+        //     $btnAll = 1;
+        // }
 
         return [
             'openTickets' => $openTickets,
