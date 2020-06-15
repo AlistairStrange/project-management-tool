@@ -75,7 +75,9 @@
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="contact" name="contact" type="email"
              placeholder="Once done, contact marek@jankovic.site" value="{{ isset($ticket) ? $ticket->contact : null }}">
 
-            <label for="document">Documents</label>
+            <label for="document">
+                Documents
+            </label>
             <div class="needsclick dropzone" id="document-dropzone">
         </div>
     </div>
