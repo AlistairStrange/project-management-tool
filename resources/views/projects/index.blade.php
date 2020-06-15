@@ -15,7 +15,7 @@
                     @foreach($projects as $project)
                         <tr class="divide-x divide-gray-400">
                             <td class="px-4 py-2">
-                                <a href="{{route('project.show', $project->id)}}" class="hover:underline text-teal-500">
+                                <a href="{{ route('project-tickets', $project->id) }}" class="hover:underline text-teal-500">
                                     {{ $project->abbreviation }}
                                 </a>
                             </td>
@@ -26,7 +26,11 @@
                                 </a>
                             </td>
 
-                            <td class="px-4 py-2 text-center">{{ $project->tickets()->get()->count() }}</td>
+                            <td class="px-4 py-2 text-center">
+                                <a href="{{ route('project-tickets', $project->id) }}" class="hover:underline text-teal-500">
+                                    {{ $project->tickets()->get()->count() }}
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 @else
