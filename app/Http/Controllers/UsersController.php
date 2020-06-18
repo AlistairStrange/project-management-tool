@@ -7,14 +7,28 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function getUsers(Request $request)
-    {
-        $search = $request->search;
+    public function index()
+    {   
+        $users = $this->getUsers();
+        // dd($users);
+        return view('users.index', ['users' => $users]);
+    }
 
-        if ($search == '') {
-            $users = User::orderBy('name', 'asc')->select('id', 'name', 'email')->limit(5)->get();
+    public function show(User $user)
+    {
+        return view('users.show', ['user' => $user]);
+    }
+
+
+    public function getUsers(Request $request = null)
+    {
+
+        isset($request) ? $search = $request->search : null;
+
+        if (!isset($search)) {
+            $users = User::orderBy('name', 'asc')->select('id', 'name', 'email', 'role', 'isAdmin')->limit(5)->get();
         } else {
-            $users = User::orderBy('name', 'asc')->select('id', 'name', 'email')->where('email', 'like', '%' . $search . '%')->limit(5)->get();
+            $users = User::orderBy('name', 'asc')->select('id', 'name', 'email', 'role', 'isAdmin')->where('email', 'like', '%' . $search . '%')->limit(5)->get();
         }
 
         // $response = $users->map(function ($users){
@@ -25,12 +39,11 @@ class UsersController extends Controller
         //     ];
         // });
 
-        $response = array();
-        foreach($users as $user){
-           $response[] = array("value"=>$user->id,"label"=>($user->name .  "(" . $user->email . ")"), "email"=>$user->email,);
-        }
+        // $response = array();
+        // foreach($users as $user){
+        //    $response[] = array("value"=>$user->id,"name"=>$user->name, "email"=>$user->email, "role"=>$user->role, "isAdmin"=>$user->isAdmin);
+        // }
 
-        echo json_encode($response);
-        exit;
+        return $users;
     }
 }
