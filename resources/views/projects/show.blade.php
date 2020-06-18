@@ -7,7 +7,7 @@
                <div class="mx-auto flex overflow-hidden">
                    <div class="flex-none bg-teal-500 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                         <ul class="grid grid-cols-1 items-center divide-y divide-gray-400 text-white">
-                            <a href="#">
+                            <a href="{{ route('tickets', $project->abbreviation) }}">
                                 <li class="m-4 col-span-1">
                                     All project's tickets
                                 </li>
