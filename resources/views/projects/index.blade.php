@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto max-w-md">
-        <table class="table-auto divide-y divide-gray-400">
+<div class="container mx-auto">
+        <table class="mx-auto table-auto divide-y divide-gray-400">
             <thead>
                 <tr class="divide-x divide-gray-400">
                     <th class="px-4 py-2">ID</th>
@@ -13,7 +13,7 @@
             <tbody>
                 @if(isset($projects))
                     @foreach($projects as $project)
-                        <tr class="divide-x divide-gray-400">
+                        <tr class="divide-x divide-gray-400 hover:bg-gray-200">
                             <td class="px-4 py-2">
                                 <a href="{{ route('tickets', $project->abbreviation) }}" class="hover:underline text-teal-500">
                                     {{ $project->abbreviation }}
