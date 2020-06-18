@@ -20,7 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/test', 'TicketsController@test')->name('test');
 
 // Search with autosuggestion
 Route::post('/users/getUsers/','UsersController@getUsers')->name('search-users');
@@ -33,8 +32,8 @@ Route::get('status-previous/{ticket}', 'TicketsController@prevStatus')->name('st
 Route::get('my-tickets/{project}', 'TicketsController@indexOnlySelectedTickets')->name('my-tickets');
 
 // Ticket related to specific project board routes
-Route::get('board/{board}', 'TicketProjectController@index')->name('project-tickets');
-Route::get('project-my-tickets/{board}', 'TicketProjectController@indexOnlySelectedTickets')->name('project-my-tickets');
+// Route::get('board/{board}', 'TicketProjectController@index')->name('project-tickets');
+// Route::get('project-my-tickets/{board}', 'TicketProjectController@indexOnlySelectedTickets')->name('project-my-tickets');
 
 // Tickets Resource
 Route::resource('ticket', 'TicketsController')->names([
@@ -45,6 +44,9 @@ Route::resource('ticket', 'TicketsController')->names([
 
 // Project Resource
 Route::resource('project', 'ProjectBoardController');
+
+// Users resource
+Route::resource('user', 'UsersController');
 
 Auth::routes();
 
