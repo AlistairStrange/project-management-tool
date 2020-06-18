@@ -12,6 +12,6 @@ class ProjectBoardSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\ProjectBoard::class, 4)->create();
+        factory(ProjectBoard::class, 4)->create();
     }
 }
