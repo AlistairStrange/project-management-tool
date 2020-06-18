@@ -31,7 +31,7 @@ class TicketsController extends Controller
 
         $tickets = $this->getTickets($project);
 
-        return view('tickets.index', $tickets)->with('abbreviation', $abbreviation);
+        return view('tickets.index', $tickets)->with('project', $project);
     }
 
     /**
@@ -49,7 +49,7 @@ class TicketsController extends Controller
 
         $tickets = $this->getTickets($project, $user);
 
-        return view('tickets.index', $tickets)->with('abbreviation', $abbreviation);
+        return view('tickets.index', $tickets)->with('project', $project);
     }
 
     /**
