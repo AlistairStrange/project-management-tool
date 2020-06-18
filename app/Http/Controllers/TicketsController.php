@@ -206,7 +206,7 @@ class TicketsController extends Controller
     {
         $ticket->delete();
 
-        return redirect()->route('tickets')->with('status', 'Ticket successfully deleted');
+        return redirect()->route('tickets', $ticket->projectBoard->abbreviation)->with('status', 'Ticket successfully deleted');
     }
 
     public function fileUpload(Request $request)
