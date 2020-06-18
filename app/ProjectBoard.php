@@ -20,4 +20,8 @@ class ProjectBoard extends Model
     {
         return $this->hasMany('App\Ticket');
     }
+
+    public function users() {
+        return $this->belongsToMany('App\User');
+    }
 }

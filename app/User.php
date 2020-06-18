@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Ticket', 'assignee_id');
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany('App\ProjectBoard');
+    }
 }
