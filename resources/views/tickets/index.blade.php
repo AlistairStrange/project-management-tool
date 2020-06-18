@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <div class="container my-6">
+    <div class="my-6 w-full mb-8">
         <a href="{{ route('tickets', $abbreviation) }}" class="
         {{ isset($btnAll) && $btnAll === 1 ? "bg-teal-400 text-white hover:bg-white hover:text-teal-500" : 'text-teal-500 hover:bg-teal-400 hover:text-white'}}
         border border-teal-400 rounded text-sm ml-10 px-1 py-1">
@@ -14,6 +14,8 @@
         border border-teal-400 rounded text-sm  ml-5 px-1 py-1">
             Only My tickets   
         </a>
+
+        <h2 class="text-gray-600 text-center font-bold text-2xl">{{ $project->name }}</h2>
     </div>
 
     <div class="container mx-auto">
