@@ -35,7 +35,7 @@
         <div class="container px-2 pt-4 pb-2 grid grid-cols-2">
             <div class="col-span-1">
                 <p class="text-xs text-gray-600 bg-gray-300 rounded-md text-center float-left py-1 px-1">
-                    ID: ticket-{{ $ticket->id }}
+                  {{ $ticket->projectBoard->abbreviation }}-{{ $ticket->id }}
                 </p>
             </div>
 
