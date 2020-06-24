@@ -7,3 +7,8 @@
 .dropdown:hover .dropdown-menu {
     display: block;
 }
+
+/* checkbox styling (user form) */
+input:checked + svg {
+    display: block;
+}
