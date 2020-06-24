@@ -8,7 +8,7 @@
                     <th class="px-4 py-2">Name</th>
                     <th class="px-4 py-2">Email</th>
                     <th class="px-4 py-2">Role</th>
-                    <th class="pl-4 py-2">Action</th>
+                    <th class="pl-4 py-2">Actions</th>
                 </tr>
             </thead>
             <tbody>
