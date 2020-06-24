@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\ProjectBoard;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -10,13 +11,19 @@ class UsersController extends Controller
     public function index()
     {   
         $users = $this->getUsers();
-        // dd($users);
         return view('users.index', ['users' => $users]);
     }
 
     public function show(User $user)
     {
         return view('users.show', ['user' => $user]);
+    }
+
+    public function edit(User $user)
+    {
+        $boards = ProjectBoard::all();
+        
+        return view('users.edit', ['user' => $user,])->with('boards', $boards);
     }
 
 
