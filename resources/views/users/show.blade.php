@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="grid grid-flow-row">
-       <div class="container mx-auto">
+       <div class="mx-auto">
            <div class="px-6 py-4">               
                <div class="mx-auto flex overflow-hidden">
                    <div class="flex-none bg-teal-500 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
@@ -58,7 +58,7 @@
                                     <ul>
                                         <li class="text-teal-400 hover:text-teal-600 text-sm mb-2">
                                             <a href="{{ route('tickets', $project->abbreviation) }}">
-                                                {{ $project->name }}
+                                                {{ $project->abbreviation . " | " . $project->name }}
                                             </a>
                                         </li>
                                     </ul>
@@ -66,7 +66,7 @@
 
                                 @elseif($user->projects->count() == 1)
                                     <a class="text-teal-400 hover:text-teal-600 text-sm mb-2" href="{{ route('tickets', $user->projects->first()->abbreviation) }}">
-                                        {{ $user->projects->first()->name }}
+                                        {{ $user->projects->first()->abbreviation . " | " . $user->projects->first()->name }}
                                     </a>
                             @endif
                        </div>
