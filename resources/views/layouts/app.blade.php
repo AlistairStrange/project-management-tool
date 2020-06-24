@@ -71,8 +71,11 @@
                         @if (Route::has('register'))
                             <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
-                    @else
-                        <span class="text-gray-300 text-sm pr-4">{{ Auth::user()->name }}</span>
+                    @else                   
+                    <span class="text-gray-300 text-sm pr-4">{{ Auth::user()->name }}</span>
+                    
+                    {{-- USER management if USER is admin ONLY --}}
+                    <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{ route('user.index') }}">Users</a>
 
                         <a href="{{ route('logout') }}"
                             class="no-underline hover:underline text-gray-300 text-sm p-3"
