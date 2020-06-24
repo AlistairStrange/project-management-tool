@@ -26,6 +26,22 @@ class UsersController extends Controller
         return view('users.edit', ['user' => $user,])->with('boards', $boards);
     }
 
+    public function update(Request $request, User $user)
+    {
+        // Updating simple model properties
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'admin' => $request->isAdmin,
+        ]);
+
+        // Synchronizing many to many relationship properties (pivot table)
+        $user->projects()->sync($request->boards);
+
+        return redirect()->route('user.index')->with('status', $user->name . ' successfully updated');
+    }
+
 
     public function getUsers(Request $request = null)
     {
