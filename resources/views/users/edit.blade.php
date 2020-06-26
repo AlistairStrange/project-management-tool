@@ -20,7 +20,7 @@
        </div>
    </div>
 
-   {{-- SELECT2 dropdowns --}}
+    <!-- SELECT2 dropdowns -->
    <script type="text/javascript">
     $(document).ready(function() {
         $('.select2-dropdown').select2({
