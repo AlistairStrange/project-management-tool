@@ -27,6 +27,18 @@
         </div>
     </div>
 
+    @if(!isset($user))
+        <div class="mb-3">
+            <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="password">
+                Password
+            </label>
+
+            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="password"
+            placeholder="User's password" type="password">
+        </div>
+    @endif
+
     <div class="mb-3 col-span-2">
         <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="projects">
             Assign to project(s)
