@@ -55,6 +55,13 @@
                 @endif
             </tbody>
         </table>
+
+        <div class="text-center my-8">
+            <a href="{{ route('user.create') }}">
+                <button class="border border-teal-500 hover:bg-teal-500 hover:text-white text-teal-500 font-bold py-2 px-4 rounded">Create a new user</button>
+            </a>
+        </div>
+
     </div>
 
 @endsection
