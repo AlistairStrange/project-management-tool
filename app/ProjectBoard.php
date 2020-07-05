@@ -13,6 +13,7 @@ class ProjectBoard extends Model
         'name',
         'description',
         'abbreviation',
+        'owner_id'
     ];
 
     // Relationships
