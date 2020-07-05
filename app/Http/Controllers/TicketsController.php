@@ -110,6 +110,8 @@ class TicketsController extends Controller
      */
     public function show(Ticket $ticket)
     {
+        $this->authorize('view', $ticket);
+
         // retrieving attachments associated with ticket
         $ticket->attachments = $ticket->getMedia('attachment');
 
@@ -157,7 +159,6 @@ class TicketsController extends Controller
         $ticket->update([
             'subject' => $request->subject,
             'description' => $request->description,
-            // 'assignee_id' => $request->assignee,
             'contact' => $request->contact,
             'deadline' => $request->deadline,
             'priority' => $request->priority,
@@ -193,7 +194,7 @@ class TicketsController extends Controller
             }
         }
 
-        return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' successfully updated!');
+        return redirect()->route('ticket.show', $ticket)->with('status', 'Ticket ID: ' . $ticket->id . ' successfully updated!');
     }
 
     /**
