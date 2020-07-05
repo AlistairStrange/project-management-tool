@@ -28,6 +28,7 @@
     </div>
 
     <div>
+    
         <div class="mb-3">
             <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="assignee">
                 Description
@@ -35,6 +36,25 @@
             
             <textarea class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="description" cols="10" rows="5">{{ isset($project) ? $project->description : null }}</textarea>
+        </div>        
+    </div>
+
+    <div>
+        <div class="mb-3">
+            <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="assignee">
+                Project Manager
+            </label>
+            
+            <select class="select2-dropdown block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight
+             focus:outline-none focus:bg-white focus:border-gray-500" name="owner">
+                @if(isset($owners))
+                    @foreach($owners as $owner)
+                        <option {{ isset($project) && $project->owner_id === $owner->id ? 'selected' : '' }} value="{{ $owner->id }}">{{ $owner->name . ' - ' . $owner->email }}</option>
+                    @endforeach
+                @else
+                    <p>Sorry No Project managers found</p>
+                @endif
+            </select>
         </div>
 
         <div class="mt-5 mb-5 float-right">
