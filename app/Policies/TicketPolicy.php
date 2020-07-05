@@ -12,7 +12,9 @@ class TicketPolicy
 
     public function before(User $user)
     {
-        return $user->isAdmin;
+        if($user->isAdmin === 1) {
+            return true;
+        }
     }
 
     /**
@@ -24,7 +26,6 @@ class TicketPolicy
     public function viewAny(User $user)
     {
         //
-        return false;
     }
 
     /**
@@ -36,8 +37,8 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket)
     {
-        //
-        return false;
+        // Verifying whether user is assigned to the project
+        return ($user->projects->contains('id', $ticket->projectBoard->id));
 
     }
 
@@ -49,7 +50,19 @@ class TicketPolicy
      */
     public function create(User $user)
     {
-        //
+        switch($user->role) {
+            case "general":
+                return false;
+                
+                break;
+            case "coordinator":
+                return true;
+                break;
+            case "pm":
+                return true;
+                break;
+        }
+
     }
 
     /**
@@ -61,7 +74,11 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket)
     {
-        //
+        //Rules for GENERAL users
+
+        // Rules for PROJECT MANAGER users
+
+        // Rules for COORDINATOR users
     }
 
     /**
@@ -73,7 +90,11 @@ class TicketPolicy
      */
     public function delete(User $user, Ticket $ticket)
     {
-        //
+        //Rules for GENERAL users
+
+        // Rules for PROJECT MANAGER users
+
+        // Rules for COORDINATOR users
     }
 
     /**
