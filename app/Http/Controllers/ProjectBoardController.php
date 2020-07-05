@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\ProjectBoard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,8 +30,10 @@ class ProjectBoardController extends Controller
      */
     public function create()
     {
+        $projectManagers = User::all()->where('role', 'pm');
+        
         // Redirect to create a new Project Board
-        return view('projects.create');
+        return view('projects.create')->with('owners', $projectManagers);
     }
 
     /**
@@ -45,9 +48,14 @@ class ProjectBoardController extends Controller
             'name' => ucfirst($request->name),
             'abbreviation' => strtoupper($request->abbreviation),
             'description' => $request->description,
+            'owner_id' => $request->owner,
         ]);
 
         $project->save();
+
+        // Assigning new Project board to the PM by default
+        $user = User::findOrFail($request->owner);
+        $project->users()->attach($user);
 
         return redirect()->route('project.index')->with('status', 'New Project Board created successfully');
     }
@@ -74,8 +82,9 @@ class ProjectBoardController extends Controller
     public function edit($id)
     {
         $project = ProjectBoard::findOrFail($id);
+        $projectManagers = User::all()->where('role', 'pm');
 
-        return view('projects.edit', ['project' => $project]);
+        return view('projects.edit', ['project' => $project])->with('owners', $projectManagers);
     }
 
     /**
@@ -90,6 +99,10 @@ class ProjectBoardController extends Controller
         $project = ProjectBoard::findOrFail($id);
 
         $project->update($request->all());
+
+        // Assigning the Project board to the PM by default
+        $user = User::findOrFail($request->owner);
+        $project->users()->sync($user);
 
         return redirect()->route('project.show', $project->id)->with('status', 'Project Board successfully updated!');
     }
