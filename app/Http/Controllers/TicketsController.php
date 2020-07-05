@@ -138,6 +138,8 @@ class TicketsController extends Controller
      */
     public function edit(Ticket $ticket)
     {
+        $this->authorize('update', $ticket);
+
         $editTicket = Ticket::findOrFail($ticket->id);
 
         // Fetching available project boards
@@ -160,6 +162,8 @@ class TicketsController extends Controller
      */
     public function update(UpdateTicketValidator $request, Ticket $ticket)
     {
+        $this->authorize('update', $ticket);
+
         $ticket->update([
             'subject' => $request->subject,
             'description' => $request->description,

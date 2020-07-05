@@ -74,11 +74,29 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket)
     {
-        //Rules for GENERAL users
-
-        // Rules for PROJECT MANAGER users
-
-        // Rules for COORDINATOR users
+        switch($user->role) {
+            case "general":
+                return false;
+                break;
+            case "coordinator":
+                // coordinator can update the ticket only if it's created by him
+                if ($ticket->reporter === $user->email) {
+                    return true;
+                    break;
+                } else {
+                    return false;
+                    break;
+                }
+            case "pm":
+                // Project maanager can update the ticket only within Project Board assigned to him / or where he's assigned as a PM
+                if($ticket->projectBoard->owner_id === $user->id) {
+                    return true;
+                    break;
+                } else {
+                    return false;
+                    break;
+                }
+        }
     }
 
     /**
