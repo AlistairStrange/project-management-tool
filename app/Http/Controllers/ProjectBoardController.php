@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ProjectBoard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateProjectValidator;
 use App\Http\Requests\UpdateProjectValidator;
 
@@ -115,7 +116,15 @@ class ProjectBoardController extends Controller
      */
     public function getProjects()
     {
-        $projects = ProjectBoard::all();
+        $user = Auth::user();
+
+        // Returns either all project boards if logged user is admin or
+        // only these projects where the user is assigned to
+        if($user->isAdmin) {
+            $projects = ProjectBoard::all();
+        } else {
+            $projects = $user->projects;
+        }
         
         return $projects;
     }
