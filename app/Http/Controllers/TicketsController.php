@@ -59,6 +59,8 @@ class TicketsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Ticket::class);
+
         // Fetching available project boards
         $projects = new ProjectBoardController();
         $projects = $projects->getProjects();
@@ -74,7 +76,9 @@ class TicketsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CreateTicketValidator $request)
-    {       
+    {
+        $this->authorize('create', Ticket::class);
+        
         $ticket = Ticket::create([
             'subject' => $request->subject,
             'description' => $request->description,
