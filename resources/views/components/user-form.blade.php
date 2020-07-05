@@ -59,7 +59,7 @@
             </label>
             
             <select class="select2-dropdown block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight
-             focus:outline-none focus:bg-white focus:border-gray-500">
+             focus:outline-none focus:bg-white focus:border-gray-500" name="role">
                 <option {{ isset($user) && $user->role === 'general' ? 'selected' : '' }} value="general">General user</option>
                 <option {{ isset($user) && $user->role === 'coordinator' ? 'selected' : '' }} value="coordinator">Coordinator</option>
                 <option {{ isset($user) && $user->role === 'pm' ? 'selected' : '' }} value="pm">Project Manager</option>
@@ -83,7 +83,7 @@
 
         <div class="mt-5 mb-5 float-right">
             <button type="submit" class="bg-teal-500 hover:bg-blue-700 text-white font-bold p-3 rounded my-1">
-                {{ isset($project) ? 'Update' : 'Create' }}
+                {{ isset($user) ? 'Update' : 'Create' }}
             </button>
         </div>
         
