@@ -25,7 +25,7 @@ class UpdateProjectValidator extends FormRequest
     {
         return [
             'name' => 'required',
-            'abbreviation' => 'required|alpha|unique:App\ProjectBoard,abbreviation|min:4|max:4|',
+            'abbreviation' => 'required|alpha|min:4|max:5|unique:App\ProjectBoard,abbreviation,' . $this->project,
             'description' => 'required',
         ];
     }
