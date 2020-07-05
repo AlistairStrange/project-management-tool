@@ -11,7 +11,8 @@ class UsersController extends Controller
 {
     public function index()
     {   
-        $users = $this->getUsers();
+        $users = User::orderBy('name', 'asc')->select('id', 'name', 'email', 'role', 'isAdmin')->get();
+
         return view('users.index', ['users' => $users]);
     }
 
@@ -74,30 +75,17 @@ class UsersController extends Controller
     }
 
 
-    public function getUsers(Request $request = null)
+    public function getUsers(Request $request)
     {
+        $search = $request->search;
 
-        isset($request) ? $search = $request->search : null;
+        $users = User::orderBy('name', 'asc')->select('id', 'name', 'email')->where('email', 'like', '%' . $search . '%')->limit(5)->get();
 
-        if (!isset($search)) {
-            $users = User::orderBy('name', 'asc')->select('id', 'name', 'email', 'role', 'isAdmin')->get();
-        } else {
-            $users = User::orderBy('name', 'asc')->select('id', 'name', 'email', 'role', 'isAdmin')->where('email', 'like', '%' . $search . '%')->limit(5)->get();
+        $response = array();
+        foreach($users as $user){
+           $response[] = array("value"=>$user->id,"label"=>($user->name .  "(" . $user->email . ")"), "email"=>$user->email,);
         }
 
-        // $response = $users->map(function ($users){
-        //     return [
-        //         'id' => $users->id, // value
-        //         'name' => $users->name, // label
-        //         // 'email' => $users->email,
-        //     ];
-        // });
-
-        // $response = array();
-        // foreach($users as $user){
-        //    $response[] = array("value"=>$user->id,"name"=>$user->name, "email"=>$user->email, "role"=>$user->role, "isAdmin"=>$user->isAdmin);
-        // }
-
-        return $users;
+        return $response;
     }
 }
