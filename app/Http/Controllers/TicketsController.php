@@ -213,6 +213,8 @@ class TicketsController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
+        $this->authorize('delete', $ticket);
+
         $ticket->delete();
 
         return redirect()->route('tickets', $ticket->projectBoard->abbreviation)->with('status', 'Ticket successfully deleted');
@@ -248,6 +250,8 @@ class TicketsController extends Controller
      */
     public function nextStatus(Ticket $ticket)
     {
+        $this->authorize('statusChange', $ticket);
+
         switch ($ticket->status) {
             case 'Open':
                 // Change status from Open to In Progress
@@ -284,6 +288,8 @@ class TicketsController extends Controller
      */
     public function prevStatus(Ticket $ticket)
     {
+        $this->authorize('statusChange', $ticket);
+
         switch ($ticket->status) {
             case 'Open':
                 // throw an error because you can't move ticket more backwards
