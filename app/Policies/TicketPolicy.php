@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\Ticket;
 use App\User;
+use App\Ticket;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TicketPolicy
@@ -38,7 +39,9 @@ class TicketPolicy
     public function view(User $user, Ticket $ticket)
     {
         // Verifying whether user is assigned to the project
-        return ($user->projects->contains('id', $ticket->projectBoard->id));
+        return $user->projects->contains('id', $ticket->projectBoard->id)
+                ? Response::allow()
+                : Response::deny("You don't have rights to view tickets of '" . $ticket->projectBoard->name . "' project board");
 
     }
 
@@ -52,8 +55,7 @@ class TicketPolicy
     {
         switch($user->role) {
             case "general":
-                return false;
-                
+                return Response::deny('Sorry, you do not have permission to create new tickets. Only Project managers or Coordinators can do that.');                
                 break;
             case "coordinator":
                 return true;
@@ -76,7 +78,7 @@ class TicketPolicy
     {
         switch($user->role) {
             case "general":
-                return false;
+                return Response::deny('Sorry, you do not have permission to update tickets.');                
                 break;
             case "coordinator":
                 // coordinator can update the ticket only if it's created by him
@@ -84,7 +86,7 @@ class TicketPolicy
                     return true;
                     break;
                 } else {
-                    return false;
+                    return Response::deny("You can't update this ticket, because it was not created by you. Ask PM's for update.");                
                     break;
                 }
             case "pm":
@@ -93,7 +95,7 @@ class TicketPolicy
                     return true;
                     break;
                 } else {
-                    return false;
+                    return Response::deny("You can't edit tickets in '" . $ticket->projectBoard->name . "' - You are not assigned PM of this board.");                
                     break;
                 }
         }
@@ -110,10 +112,10 @@ class TicketPolicy
     {
         switch($user->role) {
             case "general":
-                return false;
+                return Response::deny('Sorry, you do not have permission to delete any tickets');
                 break;
             case "coordinator":
-                return false;
+                return Response::deny('Sorry, you do not have permission to delete any tickets');                
                 break;
             case "pm":
                 // Project maanager can delete the ticket only within Project Board assigned to him / or where he's assigned as a PM
@@ -121,7 +123,7 @@ class TicketPolicy
                     return true;
                     break;
                 } else {
-                    return false;
+                    return Response::deny("You can't delete tickets in '" . $ticket->projectBoard->name . "' - You are not assigned PM of this board.");                
                     break;
                 }
         }
@@ -138,10 +140,10 @@ class TicketPolicy
     {
         switch($user->role) {
             case "general":
-                return false;
+                return Response::deny("General users can't restore previously deleted tickets");
                 break;
             case "coordinator":
-                return false;
+                return Response::deny("Coordinator users can't restore previously deleted tickets");
                 break;
             case "pm":
                 // Project maanager can restore the ticket only within Project Board assigned to him / or where he's assigned as a PM
@@ -180,7 +182,7 @@ class TicketPolicy
                     return true;
                     break;
                 } else {
-                    return false;
+                    return Response::deny("Sorry, you can't move this ticket - you are not assignee of this ticket.");
                     break;
                 }
             case "coordinator":
@@ -189,7 +191,7 @@ class TicketPolicy
                     return true;
                     break;
                 } else {
-                    return false;
+                    return Response::deny("Sorry, you can't move this ticket. Coordinators can move only tickets created by them.");
                     break;
                 }
             case "pm":
@@ -198,7 +200,7 @@ class TicketPolicy
                     return true;
                     break;
                 } else {
-                    return false;
+                    return Response::deny("You can't move tickets in '" . $ticket->projectBoard->name . "' - You are not assigned PM of this board.");                
                     break;
                 }
         }
