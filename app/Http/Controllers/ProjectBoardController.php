@@ -96,9 +96,15 @@ class ProjectBoardController extends Controller
      */
     public function update(UpdateProjectValidator $request, $id)
     {
+        // dd($request->owner);
         $project = ProjectBoard::findOrFail($id);
 
-        $project->update($request->all());
+        $project->update([            
+        'name' => ucfirst($request->name),
+        'abbreviation' => strtoupper($request->abbreviation),
+        'description' => $request->description,
+        'owner_id' => $request->owner,
+        ]);
 
         // Assigning the Project board to the PM by default
         $user = User::findOrFail($request->owner);
