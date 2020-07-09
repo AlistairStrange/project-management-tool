@@ -30,6 +30,8 @@ class ProjectBoardController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', ProjectBoard::class);
+
         $projectManagers = User::all()->where('role', 'pm');
         
         // Redirect to create a new Project Board
@@ -44,6 +46,8 @@ class ProjectBoardController extends Controller
      */
     public function store(CreateProjectValidator $request)
     {
+        $this->authorize('create', ProjectBoard::class);
+
         $project = ProjectBoard::create([
             'name' => ucfirst($request->name),
             'abbreviation' => strtoupper($request->abbreviation),
@@ -84,6 +88,9 @@ class ProjectBoardController extends Controller
     public function edit($id)
     {
         $project = ProjectBoard::findOrFail($id);
+
+        $this->authorize('update', $project);
+        
         $projectManagers = User::all()->where('role', 'pm');
 
         return view('projects.edit', ['project' => $project])->with('owners', $projectManagers);
@@ -100,6 +107,8 @@ class ProjectBoardController extends Controller
     {
         // dd($request->owner);
         $project = ProjectBoard::findOrFail($id);
+
+        $this->authorize('update', $project);
 
         $project->update([            
         'name' => ucfirst($request->name),
@@ -124,7 +133,9 @@ class ProjectBoardController extends Controller
     public function destroy($id)
     {
         $project = ProjectBoard::findOrFail($id);
-
+        
+        $this->authorize('delete', $project);
+        
         $project->delete();
 
         return redirect()->route('home')->with('status', 'Ticket successfully deleted');

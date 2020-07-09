@@ -51,7 +51,8 @@ class ProjectBoardPolicy
      */
     public function create(User $user)
     {
-        //
+        // Only admins can create Project Boards.
+        return Response::deny("Only administrators can create new Project Boards");
     }
 
     /**
@@ -63,7 +64,13 @@ class ProjectBoardPolicy
      */
     public function update(User $user, ProjectBoard $projectBoard)
     {
-        //
+        // Only PM who are project owners can edit them.
+        if($user->role === 'pm' && $projectBoard->owner_id === $user->id) {
+            return Response::allow();
+        } else {
+            return Response::deny("You are not assigned Project manager of this board");
+        }
+        
     }
 
     /**
@@ -75,7 +82,7 @@ class ProjectBoardPolicy
      */
     public function delete(User $user, ProjectBoard $projectBoard)
     {
-        //
+        return Response::deny("Only administrators can delete Project Boards");
     }
 
     /**
@@ -99,6 +106,6 @@ class ProjectBoardPolicy
      */
     public function forceDelete(User $user, ProjectBoard $projectBoard)
     {
-        //
+        return Response::deny("Only administrators can permanently delete Project Boards");
     }
 }
