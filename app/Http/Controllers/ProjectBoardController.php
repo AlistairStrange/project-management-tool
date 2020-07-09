@@ -70,6 +70,8 @@ class ProjectBoardController extends Controller
     {
         $project = ProjectBoard::findOrFail($id);
         
+        $this->authorize('view', $project);
+        
         return view('projects.show', ['project' => $project]);
     }
 
