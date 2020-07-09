@@ -177,9 +177,7 @@ return [
 
         /**
          * Custom Service providers
-         */
-        App\Providers\ProjectsOverviewProvider::class,
-        
+         */        
 
     ],
 
