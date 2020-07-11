@@ -6,6 +6,7 @@ use App\User;
 use App\ProjectBoard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\CreateUserValidator;
 
 class UsersController extends Controller
 {
@@ -28,7 +29,7 @@ class UsersController extends Controller
         return view('users.create')->with('boards', $boards);
     }
 
-    public function store(Request $request)
+    public function store(CreateUserValidator $request)
     {        
         $user = User::create([
             'name' => $request->name,
