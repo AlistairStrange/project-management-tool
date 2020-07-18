@@ -15,7 +15,7 @@ class SingleTicketPreview extends Component
      */
     public function __construct($ticket)
     {
-        $this->ticket = $ticket;
+        $this->ticket = (object) $ticket;
     }
 
     /**
