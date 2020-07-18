@@ -10,15 +10,10 @@
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-
-            <a href="{{ route('project.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                Project Boards
-            </a>
-
             <!-- Dropdown for Tickets - showing availaible project boards -->
             <div class="dropdown inline-block relative">
-                <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                    Tickets
+                <a href="{{ route('project.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    Projects
                 </a>
                 
                 <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
@@ -34,6 +29,10 @@
                     @endif
                 </ul>
             </div>
+
+            <a href="{{ route('users-tickets') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                My Tickets
+            </a>
         </div>
             
         <div class="flex-1 text-right">
