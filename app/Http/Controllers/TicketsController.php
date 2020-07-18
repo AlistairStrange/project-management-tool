@@ -52,6 +52,17 @@ class TicketsController extends Controller
         return view('tickets.index', $tickets)->with('project', $project);
     }
 
+    public function indexAllUsersTickets()
+    {
+        $user = Auth::user();
+        $tickets = $this->getTickets($user);
+
+        // dd($tickets);
+        return view('tickets.index', $tickets);
+
+        // return view('tickets.allUsersTickets', ['tickets' => $tickets]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -310,16 +321,24 @@ class TicketsController extends Controller
             case 'Closed':
                 // Back to In Progress
                 $ticket->update(['status' => 'In Progress']);
-                return redirect()->route('tickets')->with('status', 'Ticket ID: ' . $ticket->id . ' needs more work, so it was moved back to ' . $ticket->status);
+                return redirect()->back()->with('status', 'Ticket ID: ' . $ticket->id . ' needs more work, so it was moved back to ' . $ticket->status);
                 break;
             }
 
         return redirect()->back()->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
     }
 
-    public function getTickets(ProjectBoard $project, User $user = null)
+    public function getTickets($project = null, $user = null)
     {
-        if(isset($user)) {
+        // Since we're using concat method during the iteration, we need to create an empty collections
+        // used later on in the iteration
+        $openTickets = collect([]);
+        $inProgressTickets = collect([]);
+        $qualityAssuranceTickets = collect([]);
+        $inReviewTickets = collect([]);
+        $closedTickets = collect([]);
+
+        if(isset($user) && isset($project)) {
             // Get all tickets assinged to specific user from specific project board
             $openTickets = $project->tickets()->where('assignee_id', $user->id)->Open()->get();
             $inProgressTickets = $project->tickets()->where('assignee_id', $user->id)->InProgress()->get();
@@ -327,7 +346,7 @@ class TicketsController extends Controller
             $inReviewTickets = $project->tickets()->where('assignee_id', $user->id)->InReview()->get();
             $closedTickets = $project->tickets()->where('assignee_id', $user->id)->Closed()->get();
             $btnAll = 0;
-        } else {
+        } elseif(isset($project)) {
             // Get all ticket from specific project board
             $openTickets = $project->tickets()->Open()->get();
             $inProgressTickets = $project->tickets()->InProgress()->get();
@@ -335,36 +354,18 @@ class TicketsController extends Controller
             $inReviewTickets = $project->tickets()->InReview()->get();
             $closedTickets = $project->tickets()->Closed()->get();
             $btnAll = 1;
-        }
-        
+        } elseif(isset($user) && !isset($project)) {
+            // Iterate through all users projects and for each get all users tickets categorized by status
+            foreach($user->projects as $project) {
+                $openTickets = $openTickets->concat($project->tickets()->where('assignee_id', $user->id)->Open()->get());
+                $inProgressTickets = $inProgressTickets->concat($project->tickets()->where('assignee_id', $user->id)->InProgress()->get());
+                $qualityAssuranceTickets = $qualityAssuranceTickets->concat($project->tickets()->where('assignee_id', $user->id)->QualityAssurance()->get());
+                $inReviewTickets = $inReviewTickets->concat($project->tickets()->where('assignee_id', $user->id)->InReview()->get());
+                $closedTickets = $closedTickets->concat($project->tickets()->where('assignee_id', $user->id)->Closed()->get());
+            }
 
-        // if (isset($user) && $user === Auth::user()) {
-        //     // get tickets only for logged user (assigned)
-        //     $openTickets = $user->tickets()->Open()->get();
-        //     $inProgressTickets = $user->tickets()->InProgress()->get();
-        //     $qualityAssuranceTickets = $user->tickets()->QualityAssurance()->get();
-        //     $inReviewTickets = $user->tickets()->InReview()->get();
-        //     $closedTickets = $user->tickets()->Closed()->get();
-        //     $btnAll = 0;
-        // } elseif (isset($project)) {
-        //     // Get all ticket from specific project board
-        //     $openTickets = $project->tickets()->Open()->get();
-        //     $inProgressTickets = $project->tickets()->InProgress()->get();
-        //     $qualityAssuranceTickets = $project->tickets()->QualityAssurance()->get();
-        //     $inReviewTickets = $project->tickets()->InReview()->get();
-        //     $closedTickets = $project->tickets()->Closed()->get();
-        //     $btnAll = 1;
-        // } elseif (isset($project) && isset($user)) {
-        //     dd('user & project');
-        // } else {
-        //     // Get all tickets of all project boards
-        //     $openTickets = Ticket::Open()->get();
-        //     $inProgressTickets = Ticket::InProgress()->get();
-        //     $qualityAssuranceTickets = Ticket::QualityAssurance()->get();
-        //     $inReviewTickets = Ticket::InReview()->get();
-        //     $closedTickets = Ticket::Closed()->get();
-        //     $btnAll = 1;
-        // }
+            $btnAll = 1;
+        }
 
         return [
             'openTickets' => $openTickets,
@@ -374,5 +375,5 @@ class TicketsController extends Controller
             'closedTickets' => $closedTickets,
             'btnAll' => $btnAll,
         ];
-    }
+    }   
 }

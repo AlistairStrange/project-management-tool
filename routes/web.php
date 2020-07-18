@@ -30,6 +30,7 @@ Route::get('tickets/{project}', 'TicketsController@index')->name('tickets');
 Route::get('status-next/{ticket}', 'TicketsController@nextStatus')->name('status-next');
 Route::get('status-previous/{ticket}', 'TicketsController@prevStatus')->name('status-previous');
 Route::get('my-tickets/{project}', 'TicketsController@indexOnlySelectedTickets')->name('my-tickets');
+Route::get('users-tickets', 'TicketsController@indexAllUsersTickets')->name('users-tickets');
 
 // Ticket related to specific project board routes
 // Route::get('board/{board}', 'TicketProjectController@index')->name('project-tickets');
