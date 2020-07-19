@@ -42,10 +42,12 @@
                            <p class="text-gray-500 text-sm mb-2">
                                 Created on {{ $user->created_at->format('d. m. Y') }}
                            </p>
-
-                           <p class="text-gray-500 text-sm mb-2">
-                                Updated on {{ $user->updated_at->format('d. m. Y') }}
-                           </p>
+                        
+                            @if(isset($user->updated_at))
+                                <p class="text-gray-500 text-sm mb-2">
+                                        Updated on {{ $user->updated_at->format('d. m. Y') }}
+                                </p>
+                           @endif
                        </div>
 
                        <div class="mb-8 col-span-1">
