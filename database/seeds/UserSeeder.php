@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('botBotBotBot'),
             'isAdmin' => 1,
             'role' => 'pm',
+            'created_at' => now(),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ]);
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('rastamanuf2hx'),
             'isAdmin' => 1,
             'role' => 'pm',
+            'created_at' => now(),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ]);
