@@ -7,6 +7,7 @@ use App\Ticket;
 use Carbon\Carbon;
 use App\ProjectBoard;
 use Illuminate\Http\Request;
+use App\Events\TicketChanged;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input;
 use App\Http\Requests\CreateTicketValidator;
@@ -75,7 +76,7 @@ class TicketsController extends Controller
         // Fetching available project boards
         $projects = new ProjectBoardController();
         $projects = $projects->getProjects();
-
+        
         // Redirect to create views
         return view('tickets.create', ['projects' => $projects]);
     }
@@ -112,7 +113,10 @@ class TicketsController extends Controller
             $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachment');
         }
 
+        $change = 'New ticket was created -' . $ticket->subject . '-';
 
+        // Send E-mail notification
+        $this->sendEmailNotification($ticket, $change);
 
         return redirect()->back()->with('status', 'Ticket created successfully');
     }
@@ -213,6 +217,10 @@ class TicketsController extends Controller
             }
         }
 
+        // Send E-mail notification
+        $change = $ticket->getChanges();
+        $this->sendEmailNotification($ticket, $change);
+
         return redirect()->route('ticket.show', $ticket)->with('status', 'Ticket ID: ' . $ticket->id . ' successfully updated!');
     }
 
@@ -227,6 +235,9 @@ class TicketsController extends Controller
         $this->authorize('delete', $ticket);
 
         $ticket->delete();
+
+        $change = 'Ticket has been deleted';
+        $this->sendEmailNotification($ticket, $change);
 
         return redirect()->route('tickets', $ticket->projectBoard->abbreviation)->with('status', 'Ticket successfully deleted');
     }
@@ -267,18 +278,22 @@ class TicketsController extends Controller
             case 'Open':
                 // Change status from Open to In Progress
                 $ticket->update(['status' => 'In Progress']);
+                $change = 'Ticket was moved from -Open- to -In Progress-';
                 break;
             case 'In Progress':
                 // Change status from In Progress to Quality Assurance
                 $ticket->update(['status' => 'QA']);
+                $change = 'Ticket was moved from -In Progress- to -Quality Assurance-';
                 break;
             case 'QA':
                 // Change status from Quality Assurance to In Review
                 $ticket->update(['status' => 'In Review']);
+                $change = 'Ticket was moved from -Quality Assurance- to -Ready for review-';
                 break;
             case 'In Review':
                 // Change status from In Review to Closed
                 $ticket->update(['status' => 'Closed']);
+                $change = 'Ticket is now CLOSED';
                 break;
             case 'Closed':
                 // throw an error because Closed is the last status
@@ -286,6 +301,10 @@ class TicketsController extends Controller
                 break;
         }
 
+        // Send E-mail notification
+        $this->sendEmailNotification($ticket, $change);
+
+        // Redirect back - project view, only users tickets project view or All Users tickets view
         return redirect()->back()->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
     }
 
@@ -309,21 +328,28 @@ class TicketsController extends Controller
             case 'In Progress':
                 // Moves ticket back to Open
                 $ticket->update(['status' => 'Open']);
+                $change = 'Ticket was moved back from -In Progress- to -Open-';
                 break;
             case 'QA':
                 // Moves the ticket back to In Progress
                 $ticket->update(['status' => 'In Progress']);
+                $change = 'Ticket was moved back from -Quality Assurance- to -In Progress-';
                 break;
             case 'In Review':
                 // Moves ticket back to QA
                 $ticket->update(['status' => 'QA']);
+                $change = 'Ticket was moved back from -In Review- to -Quality Assurance-';
                 break;
             case 'Closed':
                 // Back to In Progress
                 $ticket->update(['status' => 'In Progress']);
+                $change = 'Ticket needs work and was Re-Opened';
                 return redirect()->back()->with('status', 'Ticket ID: ' . $ticket->id . ' needs more work, so it was moved back to ' . $ticket->status);
                 break;
             }
+
+        // Send E-mail notification
+        $this->sendEmailNotification($ticket, $change);
 
         return redirect()->back()->with('status', 'Ticket ID: ' . $ticket->id . ' has been successfully moved to ' . $ticket->status);
     }
@@ -375,5 +401,26 @@ class TicketsController extends Controller
             'closedTickets' => $closedTickets,
             'btnAll' => $btnAll,
         ];
-    }   
+    }
+    
+    public function sendEmailNotification(Ticket $ticket, $change)
+    {
+        // Get all recipients of the ticket
+        if($ticket->contact !== $ticket->reporter) {
+            $recipients = [
+                $ticket->contact,
+                $ticket->reporter,
+            ];
+        } else {
+            $recipients = $ticket->contact;
+        }
+
+        // Get currently authenticated user who fired the event
+        $user = Auth::user();
+
+        // Runs the event
+        event(new TicketChanged($ticket, $user, $recipients, $change));
+
+        return true;
+    }
 }
