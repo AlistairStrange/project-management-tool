@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendEmailNotification
+class SendEmailNotification implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -28,6 +28,8 @@ class SendEmailNotification
      */
     public function handle(TicketChanged $event)
     {
+        // The event is queuable in order to be able run it in background
+        // php artisan queue:work is required or run 'SUPERVISE'
         // Data passed to Event can be access using $event->ticket or $event->user
         
         // Send E-mail
