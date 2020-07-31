@@ -32,6 +32,11 @@ Route::get('status-previous/{ticket}', 'TicketsController@prevStatus')->name('st
 Route::get('my-tickets/{project}', 'TicketsController@indexOnlySelectedTickets')->name('my-tickets');
 Route::get('users-tickets', 'TicketsController@indexAllUsersTickets')->name('users-tickets');
 
+// Todo Manual Routes
+Route::post('store-item/{list}', 'TodoItemsController@store')->name('todo-item.store');
+Route::post('complete-item/{item}', 'TodoItemsController@completed')->name('todo-item.completed');
+Route::delete('delete-item/{item}', 'TodoItemsController@destroy')->name('todo-item.delete');
+
 // Ticket related to specific project board routes
 // Route::get('board/{board}', 'TicketProjectController@index')->name('project-tickets');
 // Route::get('project-my-tickets/{board}', 'TicketProjectController@indexOnlySelectedTickets')->name('project-my-tickets');

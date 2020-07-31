@@ -59,6 +59,9 @@
                                {!! $ticket->description !!}
                            </p>
 
+                        @include('partials._todo')
+
+
                         <div class="text-sm col-span-1 text-gray-700 mt-8">
                             <p class="font-semibold">Attachments: </p>
 
