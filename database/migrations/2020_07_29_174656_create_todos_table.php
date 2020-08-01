@@ -20,7 +20,7 @@ class CreateTodosTable extends Migration
             
             // Foreign key / relationship
             $table->bigInteger('ticket_id')->unsigned()->nullable();
-            $table->foreign('ticket_id')->references('id')->on('tickets');
+            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
             
             $table->softDeletes();
             $table->timestamps();

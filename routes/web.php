@@ -37,6 +37,10 @@ Route::post('store-item/{list}', 'TodoItemsController@store')->name('todo-item.s
 Route::post('complete-item/{item}', 'TodoItemsController@completed')->name('todo-item.completed');
 Route::delete('delete-item/{item}', 'TodoItemsController@destroy')->name('todo-item.delete');
 
+Route::post('{ticket}/store-todo', 'TodosController@store')->name('todo.store');
+Route::delete('delete-todo/{list}', 'TodosController@destroy')->name('todo.delete');
+Route::post('complete-todo/{list}', 'TodosController@completed')->name('todo.completed');
+
 // Ticket related to specific project board routes
 // Route::get('board/{board}', 'TicketProjectController@index')->name('project-tickets');
 // Route::get('project-my-tickets/{board}', 'TicketProjectController@indexOnlySelectedTickets')->name('project-my-tickets');

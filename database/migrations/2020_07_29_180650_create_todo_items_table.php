@@ -20,7 +20,7 @@ class CreateTodoItemsTable extends Migration
 
             // Foreign key / relationship
             $table->bigInteger('todo_id')->unsigned()->nullable();
-            $table->foreign('todo_id')->references('id')->on('todos');
+            $table->foreign('todo_id')->references('id')->on('todos')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();

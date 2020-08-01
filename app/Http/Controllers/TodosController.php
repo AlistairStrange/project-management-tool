@@ -9,69 +9,23 @@ use Illuminate\Http\Request;
 class TodosController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Ticket $ticket)
-    {
-        // Return all todos which belongs to the specific ticket
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($ticketId, Request $request)
     {
         // Store the todo and assign it to the specific ticket
-    }
+        $list = Todo::create([
+            'subject' => $request->listSubject,
+        ]);
+        
+        $ticket = Ticket::findOrFail($ticketId);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Todo $todo)
-    {
-        //
-    }
+        $ticket->todos()->save($list);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Todo $todo)
-    {
-        //
+        return redirect()->back()->with('status', 'New To-Do list created successfully');
     }
 
     /**
@@ -80,9 +34,14 @@ class TodosController extends Controller
      * @param  \App\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Todo $todo)
+    public function destroy($todoId)
     {
         // Soft delete the todo
+        $list = Todo::findOrFail($todoId);
+
+        $list->delete();
+
+        return redirect()->back()->with('status', 'To-Do list removed');
     }
 
     /**
@@ -91,8 +50,17 @@ class TodosController extends Controller
      *
      * @return void
      */
-    public function completed()
+    public function completed($todoId)
     {
+        $list = Todo::findOrFail($todoId);
 
+        // Update all todo's items via mass update
+        if(count($list->items) > 0){
+            $list->items()->update(['completed' => true]);
+        } else {
+            return redirect()->back()->with('error', 'There are no items in the list');
+        }
+
+        return redirect()->back()->with('status', "All list's items completed successfully");
     }
 }
