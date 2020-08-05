@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Todo;
 use App\Ticket;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTodoList;
+use Illuminate\Support\Facades\Auth;
 
 class TodosController extends Controller
 {
@@ -14,16 +16,21 @@ class TodosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($ticketId, Request $request)
+    public function store($ticketId, StoreTodoList $request)
     {
+        $ticket = Ticket::findOrFail($ticketId);
+        $user = Auth::user();
+        
+        $this->authorize('create', Todo::class);
+
         // Store the todo and assign it to the specific ticket
         $list = Todo::create([
             'subject' => $request->listSubject,
-        ]);
+            ]);
         
-        $ticket = Ticket::findOrFail($ticketId);
-
+        // Setting up relationships
         $ticket->todos()->save($list);
+        $user->todos()->save($list);
 
         return redirect()->back()->with('status', 'New To-Do list created successfully');
     }
@@ -39,6 +46,8 @@ class TodosController extends Controller
         // Soft delete the todo
         $list = Todo::findOrFail($todoId);
 
+        $this->authorize('delete', $list);
+
         $list->delete();
 
         return redirect()->back()->with('status', 'To-Do list removed');
@@ -53,6 +62,8 @@ class TodosController extends Controller
     public function completed($todoId)
     {
         $list = Todo::findOrFail($todoId);
+
+        $this->authorize('completed', $list);
 
         // Update all todo's items via mass update
         if(count($list->items) > 0){
