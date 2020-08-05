@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\ProjectBoard');
     }
+
+    public function todos()
+    {
+        return $this->hasMany('App\Todo', 'owner_id');
+    }
 }
