@@ -21,29 +21,6 @@ class TodoPolicy
     }
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
-    {
-        // 
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Todo  $todo
-     * @return mixed
-     */
-    public function view(User $user, Todo $todo)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can create models.
      *
      * @param  \App\User  $user
@@ -52,18 +29,6 @@ class TodoPolicy
     public function create(User $user)
     {
         return true;
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Todo  $todo
-     * @return mixed
-     */
-    public function update(User $user, Todo $todo)
-    {
-        //
     }
 
     /**
@@ -99,14 +64,14 @@ class TodoPolicy
                     return true;
                     break;
                 } else {
-                    return Response::deny("You can't delete To-Do lists on tickets in '" . $ticket->projectBoard->name . "' - You are not assigned PM of this board.");                
+                    return Response::deny("You can't delete To-Do lists on this ticket'");                
                     break;
                 }
         }
     }
 
     /**
-     * Determine whether the user can delete the whole To-Do list / item
+     * Determine whether the user can complete the whole To-Do list / item
      *
      * @param User $user
      * @param Ticket $ticket
@@ -134,11 +99,43 @@ class TodoPolicy
                 }
             case "pm":
                 // Project maanager can update the ticket only within Project Board assigned to him / or where he's assigned as a PM
-                if($$list->ticket->projectBoard->owner_id === $user->id || $list->owner_id === $user->id) {
+                if($list->ticket->projectBoard->owner_id === $user->id || $list->owner_id === $user->id) {
                     return true;
                     break;
                 } else {
-                    return Response::deny("You can't change status of To-Do lists on tickets in '" . $ticket->projectBoard->name . "' - You are not assigned PM of this board.");                
+                    return Response::deny("You can't change status of this To-Do list on tickets in '");                
+                    break;
+                }
+        }
+    }
+
+    public function addItem(User $user, Todo $list)
+    {
+        switch($user->role) {
+            case "general":
+                if($list->ticket->assignee_id === $user->id || $list->owner_id === $user->id) {
+                    return true;
+                    break;
+                } else {
+                    return Response::deny("You don't have rights to add new item to this To-Do list");
+                    break;
+                }
+            case "coordinator":
+                // coordinator can add items only if it's created by him
+                if ($list->ticket->reporter === $user->email || $list->owner_id === $user->id) {
+                    return true;
+                    break;
+                } else {
+                    return Response::deny("You don't have rights to add item to this To-Do list");
+                    break;
+                }
+            case "pm":
+                // Project maanager can add items to lists only within Project Board assigned to him / or where he's assigned as a PM
+                if($list->ticket->projectBoard->owner_id === $user->id || $list->owner_id === $user->id) {
+                    return true;
+                    break;
+                } else {
+                    return Response::deny("You can't add items to this To-Do list");                
                     break;
                 }
         }

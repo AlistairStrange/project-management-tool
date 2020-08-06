@@ -65,13 +65,31 @@ class TodosController extends Controller
 
         $this->authorize('completed', $list);
 
-        // Update all todo's items via mass update
-        if(count($list->items) > 0){
-            $list->items()->update(['completed' => true]);
+        if(!$list->completed) {
+            // Update all todo's items via mass update
+            if(count($list->items) > 0){
+                $list->items()->update(['completed' => true]);
+            } else {
+                $list->completed = true;
+                $list->save();
+                return redirect()->back()->with('status', 'There are no items in the list. Main list is marked as completed');
+            }
+    
+            $list->completed = true;
+            $list->save();
+    
+            return redirect()->back()->with('status', "All list's items completed successfully");
         } else {
-            return redirect()->back()->with('error', 'There are no items in the list');
-        }
+            $list->completed = false;
+            $list->save();
 
-        return redirect()->back()->with('status', "All list's items completed successfully");
+            if(count($list->items) > 0) {
+                $list->items()->update(['completed' => false]);
+
+                return redirect()->back()->with('status', 'List & all items reopened successfully');
+            }
+
+            return redirect()->back()->with('status', 'List reopened successfully');
+        }
     }
 }
