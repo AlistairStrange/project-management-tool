@@ -22,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
         ProjectBoard::class => ProjectBoardPolicy::class,
         Todo::class => TodoPolicy::class,
+        TodoItem::class => TodoItemPolicy::class,
         Ticket::class => TicketPolicy::class,
     ];
 

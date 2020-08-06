@@ -20,6 +20,8 @@ class TodoItemsController extends Controller
     {
         $list = Todo::findOrFail($todoId);
 
+        $this->authorize('addItem', $list);
+
         // Creates new item
         $item = TodoItem::create([
             'description' => $request->itemDescription,
@@ -42,6 +44,8 @@ class TodoItemsController extends Controller
     {
         $item = TodoItem::findOrFail($itemId);
 
+        $this->authorize('delete', $item);
+
         $item->delete();
 
         return redirect()->back()->with('status', 'Todo task removed');
@@ -51,6 +55,8 @@ class TodoItemsController extends Controller
     {
         $item = TodoItem::findOrFail($itemId);
 
+        $this->authorize('completed', $item);
+
         // Check whether we need to complete or re-open the item
         if($item->completed == false)
         {
@@ -58,7 +64,7 @@ class TodoItemsController extends Controller
         } else {
             $item->completed = false;
         }
-
+        
         $item->save();
 
         return redirect()->back()->with('status', 'Todo task updated');
