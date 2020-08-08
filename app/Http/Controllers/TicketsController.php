@@ -58,10 +58,7 @@ class TicketsController extends Controller
         $user = Auth::user();
         $tickets = $this->getTickets($user);
 
-        // dd($tickets);
         return view('tickets.index', $tickets);
-
-        // return view('tickets.allUsersTickets', ['tickets' => $tickets]);
     }
 
     /**
@@ -187,14 +184,20 @@ class TicketsController extends Controller
             'priority' => $request->priority,
         ]);
 
+        $change = $ticket->getChanges();
+
         // Associating the ticket with specific user (assignee = owner)
         $user = User::find($request->assignee);
         $user->tickets()->save($ticket);
+
+        $change['assignee'] = $user->name;
 
         // Associating the ticket with specific project board
         $project = ProjectBoard::find($request->project);
         $project->tickets()->save($ticket);
         
+        $change['project'] = $project->abbreviation;
+
         // Retrieving all attachments for ticket which is being edited
         $ticket->attachment = $ticket->getMedia('attachment');
 
@@ -218,7 +221,6 @@ class TicketsController extends Controller
         }
 
         // Send E-mail notification
-        $change = $ticket->getChanges();
         $this->sendEmailNotification($ticket, $change);
 
         return redirect()->route('ticket.show', $ticket)->with('status', 'Ticket ID: ' . $ticket->id . ' successfully updated!');
@@ -405,7 +407,7 @@ class TicketsController extends Controller
     
     public function sendEmailNotification(Ticket $ticket, $change)
     {
-        // Get all recipients of the ticket
+        // Get all recipients of the notification
         if($ticket->contact !== $ticket->reporter) {
             $recipients = [
                 $ticket->contact,
