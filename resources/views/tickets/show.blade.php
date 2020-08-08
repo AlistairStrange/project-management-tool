@@ -12,19 +12,19 @@
                        <!-- Comment -->
                        <!-- etc -->
                         <ul class="grid grid-cols-1 items-center divide-y divide-gray-400 text-white">
-                            <a href="{{ route('edit-ticket', $ticket->id) }}">
+                            <a class="hover:bg-teal-600" href="{{ route('edit-ticket', $ticket->id) }}">
                                 <li class="m-4 col-span-1">
                                     Edit
                                 </li>
                             </a>
     
-                            <a href="#">
+                            <a class="hover:bg-teal-600" href="#">
                                 <li class="m-4 col-span-1">
                                     Move to
                                 </li>
                             </a>
     
-                            <form action="{{ route('ticket.destroy', $ticket->id) }}" method="POST">
+                            <form class="hover:bg-teal-600" action="{{ route('ticket.destroy', $ticket->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <li class="m-4 col-span-1">
@@ -32,15 +32,15 @@
                                 </li>
                             </form>
     
-                            <a href="#">
+                            <a class="hover:bg-teal-600" href="#">
                                 <li class="m-4 col-span-1">
                                     Comment
                                 </li>
                             </a>
 
-                            <a href="#">
+                            <a class="hover:bg-teal-600" href="{{ route('users-tickets') }}">
                                 <li class="m-4 col-span-1">
-                                    Back to my tickets
+                                    All my tickets
                                 </li>
                             </a>
                         </ul>
