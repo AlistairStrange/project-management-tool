@@ -25,7 +25,7 @@ class TicketChanged
     // Changelog information
     public $change;
 
-    // Recipients array
+    // Recipients array / or just 1 recipient
     public $recipients;
 
     /**
