@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Todo;
 use App\Ticket;
+use App\Events\TodoChanged;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTodoList;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,10 @@ class TodosController extends Controller
         $ticket->todos()->save($list);
         $user->todos()->save($list);
 
+        // Send Email Notofication
+        $change = 'New To-Do list created!';
+        $this->sendEmailNotification($list, $change);
+
         return redirect()->back()->with('status', 'New To-Do list created successfully');
     }
 
@@ -49,6 +54,10 @@ class TodosController extends Controller
         $this->authorize('delete', $list);
 
         $list->delete();
+
+        // Send Email Notofication
+        $change = 'To-Do list removed!';
+        $this->sendEmailNotification($list, $change);
 
         return redirect()->back()->with('status', 'To-Do list removed');
     }
@@ -77,8 +86,13 @@ class TodosController extends Controller
     
             $list->completed = true;
             $list->save();
-    
+            
+            // Send Email Notofication
+            $change = 'To-Do list & all its items completed!';
+            $this->sendEmailNotification($list, $change);
+
             return redirect()->back()->with('status', "All list's items completed successfully");
+
         } else {
             $list->completed = false;
             $list->save();
@@ -86,10 +100,40 @@ class TodosController extends Controller
             if(count($list->items) > 0) {
                 $list->items()->update(['completed' => false]);
 
+                // Send Email Notofication
+                $change = 'To-Do list & all its items re-opened!';
+                $this->sendEmailNotification($list, $change);
+                
                 return redirect()->back()->with('status', 'List & all items reopened successfully');
             }
 
             return redirect()->back()->with('status', 'List reopened successfully');
         }
     }
+
+    public function sendEmailNotification(Todo $list, $change)
+    {
+        // Get all recipients of the notification
+        if($list->ticket->contact !== $list->ticket->reporter) {
+            $recipients = [
+                $list->ticket->contact,
+                $list->ticket->reporter,
+                $list->user->email,
+            ];
+        } else {
+            $recipients = [
+                $list->ticket->contact,
+                $list->user->email,    
+            ];
+        }
+
+        // Get currently authenticated user who fired the event
+        $user = Auth::user();
+
+        // Runs the event
+        event(new TodoChanged($list, $user, $recipients, $change));
+
+        return true;
+    }
+
 }
