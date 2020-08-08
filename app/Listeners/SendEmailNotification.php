@@ -23,7 +23,7 @@ class SendEmailNotification implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  TicketChanged  $event
+     * @param  TicketChanged $event
      * @return void
      */
     public function handle(TicketChanged $event)
@@ -31,7 +31,7 @@ class SendEmailNotification implements ShouldQueue
         // The event is queuable in order to be able run it in background
         // php artisan queue:work is required or run 'SUPERVISE'
         // Data passed to Event can be access using $event->ticket or $event->user
-        
+    
         // Send E-mail
         foreach ($event->recipients as $recipient) {
             Mail::to($recipient)->send(new TicketChangedMail($event->ticket, $event->user, $event->change));
