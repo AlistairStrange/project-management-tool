@@ -42,8 +42,8 @@ Route::delete('delete-todo/{list}', 'TodosController@destroy')->name('todo.delet
 Route::post('complete-todo/{list}', 'TodosController@completed')->name('todo.completed');
 
 // Reports manual route
-Route::get('report-tickets', 'ReportsController@index');
-Route::post('report', 'ReportsController@getData')->name('report-getData');
+Route::get('report-tickets', 'ReportsController@index')->name('report-tickets');
+Route::get('get-tickets', 'ReportsController@getData')->name('report-getData');
 
 // Tickets Resource
 Route::resource('ticket', 'TicketsController')->names([
