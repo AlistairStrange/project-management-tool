@@ -62,6 +62,7 @@ class ReportsController extends Controller
     {
         // Flashing selected data to session.
         $request->flash();
+        $request->session()->reflash();
 
 
         $data = new Ticket();

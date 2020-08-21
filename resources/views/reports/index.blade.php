@@ -191,8 +191,11 @@
                 },
             });
 
-            // $('#date-range').val('');
-            $('#date-range').attr('placeholder', 'Select your date range');
+            @if(!old('daterange'))
+                $('#date-range').val('');
+                $('#date-range').attr('placeholder', 'Select your date range');
+            @endif
+
 
         });
    </script>

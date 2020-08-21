@@ -37,6 +37,6 @@
 </table>
 
 <div class="container mx-auto mt-8">
-    {{ $data->links() }}
+    {{ $data->withQueryString()->links() }}
 </div>
 
