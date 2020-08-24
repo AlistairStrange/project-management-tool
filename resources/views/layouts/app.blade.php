@@ -26,12 +26,45 @@
 
 <body class="bg-gray-100 h-screen antialiased leading-none">
     <div id="app">
+
         <!-- NAVIGATION -->
         <x-navigation/>
 
         @include('partials._status')
 
         @yield('content')
+
+        <!-- MAIN TICKET SEARCH script -->
+        <script type="application/javascript">
+            // CSRF Token
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $(document).ready(function(){
+                $( "#tickets_search" ).autocomplete({
+                source: function( request, response ) {
+                    // Fetch data
+                    $.ajax({
+                    url:"{{route('search-tickets')}}",
+                    type: 'post',
+                    dataType: "json",
+                    data: {
+                        _token: CSRF_TOKEN,
+                        search: request.term
+                    },
+                    success: function( data ) {
+                        // rendering options (label)
+                        response( data );
+                    }
+                    });
+                },
+                select: function (event, ui) {
+                    // Redirecting users according to a returned value
+                    window.location.href = ui.item.value;
+                    
+                    return false;
+                }
+                });
+            });
+        </script>
     </div>
 </body>
 </html>

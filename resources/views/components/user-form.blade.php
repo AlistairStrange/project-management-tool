@@ -11,7 +11,7 @@
             <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="name">
                 Name
             </label>
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="subject" name="name"
             type="text" placeholder="User's name" value="{{ isset($user) ? $user->name : null }}">
         </div>
@@ -21,7 +21,7 @@
                 E-mail
             </label>
 
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="email"
             type="text" placeholder="User's email" value="{{ isset($user) ? $user->email : null }}">
         </div>
@@ -33,7 +33,7 @@
                 Password
             </label>
 
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="password"
             placeholder="User's password" type="password">
         </div>
@@ -59,7 +59,7 @@
             </label>
             
             <select class="select2-dropdown block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight
-             focus:outline-none focus:bg-white focus:border-gray-500" name="role">
+             focus:outline-none focus:bg-white focus:border-purple-500" name="role">
                 <option {{ isset($user) && $user->role === 'general' ? 'selected' : '' }} value="general">General user</option>
                 <option {{ isset($user) && $user->role === 'coordinator' ? 'selected' : '' }} value="coordinator">Coordinator</option>
                 <option {{ isset($user) && $user->role === 'pm' ? 'selected' : '' }} value="pm">Project Manager</option>
@@ -70,7 +70,7 @@
             <label class="text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="admin">
                 Make admin?
             </label>
-            <div class="my-3 mb-3 bg-white border-2 rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
+            <div class="my-3 mb-3 bg-white border rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
                 <input class="opacity-0 absolute" type="checkbox" name="admin" {{ isset($user) && $user->isAdmin == 1 ? 'checked' : '' }} value="1" >
                 <svg class="fill-current hidden w-4 h-4 text-teal-500 pointer-events-none mb-" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
             </div>

@@ -17,6 +17,8 @@ class ReportsController extends Controller
     public $data;
 
     public function __construct () {
+        $this->middleware('auth');
+
         $this->data = '';
         $this->projects = ProjectBoard::all('id', 'abbreviation');
         $this->users = User::all('id', 'email');

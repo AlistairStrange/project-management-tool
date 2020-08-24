@@ -19309,6 +19309,18 @@ input:checked + svg {
   display: block;
 }
 
+/* Styling of jQuery's autocomplete pluging / widget */
+
+.ui-widget-content {
+  border: none;
+  font-size: 0.8em;
+  color: grey;
+}
+
+.ui-menu-item {
+  padding-top: 1.5rem;
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;

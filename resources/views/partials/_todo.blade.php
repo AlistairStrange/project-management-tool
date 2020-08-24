@@ -3,7 +3,7 @@
     @if(isset($ticket->todos))
         <!-- If it does, then iterate over them and display them -->
         @foreach($ticket->todos as $list)
-                <div class="border border-gray-300 rounded-t hover:shadow-xl hover:border-teal-400 px-4 py-4">
+                <div class="border border-gray-300 rounded-t hover:shadow-xl hover:border-purple-500 px-4 py-4">
                     <p class="float-left font-semibold {{ $list->completed ? 'line-through text-gray-600' : '' }}">{{ $list->subject }}</p>
 
                     <!-- REMOVE whole list -->
@@ -72,8 +72,8 @@
                             @csrf
                             <div class="grid xl:grid-cols-4 grid-cols-2 gap-2">
                                 <div class="col-span-3 mr-2">
-                                    <input class="flex-1 bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-2 
-                                        text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500" name="itemDescription"
+                                    <input class="flex-1 bg-gray-200 appearance-none border border-gray-200 rounded py-2 px-2 
+                                        text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="itemDescription"
                                         type="text" placeholder="Add new to-do item">
                                 </div>
                     
@@ -88,15 +88,15 @@
     @endif
     
     <!-- Displaying options for adding new Todo List -->
-    <div class="bg-gray-100 border-dashed border-2 border-gray-300 rounded-t hover:shadow-md hover:border-teal-400 px-4 py-4 
+    <div class="bg-gray-100 border-dashed border-2 border-gray-300 rounded-t hover:shadow-md hover:border-purple-500 px-4 py-4 
     {{ isset($list) ? '' : 'h-56' }}">
 
             <form class="h-full w-full" action="{{ route('todo.store', $ticket->id) }}" method="POST">
                 @csrf
                 <div class="h-full w-full float">
                     <div class="col-span-3 mr-2 h-full w-full">
-                        <input class="text-center flex-1 bg-gray-100 appearance-none border-2 border-gray-100 rounded py-2 px-2 
-                            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500 h-full w-full" name="listSubject"
+                        <input class="text-center flex-1 bg-gray-100 appearance-none border border-gray-100 rounded py-2 px-2 
+                            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 h-full w-full" name="listSubject"
                             type="text" placeholder="Create New To-Do list">
                     </div>
         
@@ -108,29 +108,4 @@
 
     </div>
 </div>
-
-
-
-
-
-<!-- <div class="border-dashed border-2 border-gray-300 rounded-t hover:shadow-md hover:border-teal-400 px-4 py-4">
-        <div class="mx-auto my-16">
-            <span class="">NEW TODO</span>
-
-            <form class="mt-4" action="{{ route('todo.store', $ticket->id) }}" method="POST">
-                @csrf
-                <div class="grid grid-cols-4 gap-2">
-                    <div class="col-span-3 mr-2">
-                        <input class="flex-1 bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-2 
-                            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500" name="listSubject"
-                            type="text" placeholder="Create New To-Do list">
-                    </div>
-        
-                    <div class="col-span-1 mt-1 bg-teal-400 rounded-full h-8 w-8 flex items-center justify-center text-white font-bold text-3xl pb-2 hover:bg-teal-600 mx-auto">
-                        <button type="submit">+</button>
-                    </div>
-                </div>                            
-            </form>                                
-        </div>
-    </div> -->
 

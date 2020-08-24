@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Search with autosuggestion
 Route::post('/users/getUsers/','UsersController@getUsers')->name('search-users');
+Route::post('/tickets/search-users', 'TicketsController@searchTickets')->name('search-tickets');
 Route::post('ticket/attachment', 'TicketsController@fileUpload')->name('tickets.upload');
 
 // Ticket Manual Routes

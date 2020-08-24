@@ -32,7 +32,7 @@
                 Subject
             </label>
     
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="subject" name="subject"
              type="text" placeholder="Create new project management tool" value="{{ isset($ticket) ? $ticket->subject : null }}">
         </div>
@@ -46,7 +46,7 @@
         
         <!-- TRIX rich text editor in place -->
         <input id="description" type="hidden" name="description" value="{{ isset($ticket) ? $ticket->description : null}}">
-        <trix-editor class="text-gray-500 text-sm leading-snug focus:border-purple-500 border-2 border-gray-300" input="description"></trix-editor>
+        <trix-editor class="text-gray-500 text-sm leading-snug focus:border-purple-500 border border-gray-300" input="description"></trix-editor>
     </div>
 
     <div>
@@ -56,12 +56,12 @@
             </label>
             
              <!-- For defining autocomplete -->
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="email" id='user_search' 
             value="{{ isset($ticket) ? $ticket->user->email : null }}" placeholder="marek.jankovic@henkel.com">
 
             <!-- For displaying selected option value from autocomplete suggestion -->
-            <input hidden class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input hidden class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" type="text" 
             id='userid' readonly name="assignee" value="{{ isset($ticket) ? $ticket->user->id : null }}">  
 
@@ -71,7 +71,7 @@
             <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="contact">
                 Contact
             </label>
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="contact" name="contact" type="email"
              placeholder="Once done, contact marek@jankovic.site" value="{{ isset($ticket) ? $ticket->contact : null }}">
 
@@ -87,7 +87,7 @@
             <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="deadline">
                 Deadline
             </label>
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border-gray-200 rounded w-full py-2 px-4 
             text-gray-500 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="deadline" name="deadline" 
             value="{{isset($ticket) ? $ticket->deadline : null }}" type="date">
         </div>

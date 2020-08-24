@@ -12,3 +12,14 @@
 input:checked + svg {
     display: block;
 }
+
+/* Styling of jQuery's autocomplete pluging / widget */
+.ui-widget-content {
+    border: none;
+    font-size: 0.8em;
+    color: grey;
+}
+
+.ui-menu-item {
+    padding-top: 1.5rem;
+}

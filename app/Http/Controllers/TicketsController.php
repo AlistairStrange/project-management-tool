@@ -9,6 +9,7 @@ use App\ProjectBoard;
 use Illuminate\Http\Request;
 use App\Events\TicketChanged;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 use Symfony\Component\Console\Input\Input;
 use App\Http\Requests\CreateTicketValidator;
 use App\Http\Requests\UpdateTicketValidator;
@@ -403,6 +404,30 @@ class TicketsController extends Controller
             'closedTickets' => $closedTickets,
             'btnAll' => $btnAll,
         ];
+    }
+
+    public function searchTickets(Request $request)
+    {
+        // 1. This method got called by AJAX & part of the request passed by AJAX
+        $search = $request->search;
+
+        // 2. Perform the query search
+        $tickets = Ticket::orderBy('subject', 'asc')->select('id', 'subject','description', 'contact', 'reporter', 'assignee_id')
+            ->where(function (Builder $query) use($search) {
+                $query->where('subject', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhere('contact', 'like', '%' . $search . '%')
+                    ->orWhere('reporter', 'like', '%' . $search . '%');
+            })
+            ->limit(10)->get();
+
+        // 3. return an array of results where label is combination of Ticket name & Assignee
+        $response = array();
+        foreach($tickets as $ticket){
+           $response[] = array("value"=>"/ticket/$ticket->id","label"=>($ticket->subject .  " (" . $ticket->user->name . ")"));
+        }
+
+        return $response;
     }
     
     public function sendEmailNotification(Ticket $ticket, $change)

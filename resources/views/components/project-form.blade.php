@@ -11,7 +11,7 @@
             <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="subject">
                 Project name
             </label>
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="subject" name="name"
             type="text" placeholder="Create new Project Board" value="{{ isset($project) ? $project->name : null }}">
         </div>
@@ -21,7 +21,7 @@
                 Abbreviation
             </label>
 
-            <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <input class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="abbreviation"
             type="text" placeholder="4 characters" value="{{ isset($project) ? $project->abbreviation : null }}">
         </div>
@@ -34,7 +34,7 @@
                 Description
             </label>
             
-            <textarea class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 
+            <textarea class="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-4 
             text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="description" cols="10" rows="5">{{ isset($project) ? $project->description : null }}</textarea>
         </div>        
     </div>

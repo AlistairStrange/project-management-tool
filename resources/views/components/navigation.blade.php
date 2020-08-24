@@ -42,8 +42,11 @@
         </div>
 
         <form class="mx-24 flex-grow text-center" action="post">
-            <input class="w-full text-center border border-gray-500 text-gray-400 py-1 px-3 pr-8 rounded leading-none focus:outline-none
-             focus:bg-white focus:border-gray-700 focus:shadow-inner" type="text" name="search" placeholder="Search for tickets, contacts, assignees, etc...">
+            @csrf
+
+            <input class="w-full text-center text-gray-500 py-1 px-3 pr-8 rounded leading-none focus:outline-none
+             focus:bg-white border focus:border-purple-500 focus:shadow-outter" type="text" name="search" id="tickets_search"
+              placeholder="Search the tickets - description, contacts, reporters etc...">
         </form>
 
 

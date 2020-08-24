@@ -89,7 +89,7 @@
                             </label>
 
                             <input class="block appearance-none w-full border border-gray-500 text-gray-400 py-1 px-3 pr-8 rounded leading-none 
-                            focus:outline-none focus:bg-white focus:border-gray-700" id="date-range" name="daterange" value="{{ old('daterange') ? old('daterange') : ""}}">
+                            focus:outline-none focus:bg-white focus:border-purple-500" id="date-range" name="daterange" value="{{ old('daterange') ? old('daterange') : ""}}">
                         </div>
 
                         <div class="">
@@ -99,7 +99,7 @@
                             </label>
 
                             <input type="email" name="contact" class="block appearance-none w-full border border-gray-500 text-gray-400 py-1 px-3 pr-8 rounded leading-none 
-                            focus:outline-none focus:bg-white focus:border-gray-700" placeholder="Specify contact's e-mail">
+                            focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Specify contact's e-mail">
                         </div>
 
                         <div class="">
@@ -109,7 +109,7 @@
                             </label>
 
                             <input type="email" name="reporter" class="block appearance-none w-full border border-gray-500 text-gray-400 py-1 px-3 pr-8 rounded leading-none 
-                            focus:outline-none focus:bg-white focus:border-gray-700" placeholder="Specify reporter's e-mail" value="{{ old('reporter') ? old('reporter') : ''  }}">
+                            focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Specify reporter's e-mail" value="{{ old('reporter') ? old('reporter') : ''  }}">
                         </div>
                         
                         <button id="searchBtn" type="submit" class="col-span-1 sm:col-end-3 lg:col-end-4 bg-teal-500 hover:bg-blue-700 text-white font-bold p-3 rounded my-1">
