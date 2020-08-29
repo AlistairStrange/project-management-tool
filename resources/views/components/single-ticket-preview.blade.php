@@ -33,10 +33,18 @@
         </div>
 
         <div class="container px-2 pt-4 pb-2 grid grid-cols-2">
+            
+
             <div class="col-span-1">
                 <p class="text-xs text-gray-600 bg-gray-300 rounded-md text-center float-left py-1 px-1">
                     @if(isset($ticket->projectBoard))
                         {{ $ticket->projectBoard->abbreviation }}-{{ $ticket->id }}
+                    @endif
+                </p>
+
+                <p class="text-xs text-gray-600 bg-gray-300 rounded-md text-center float-left py-1 px-1 ml-3">
+                    @if(isset($ticket->story_points))
+                        {{ $ticket->story_points }} p.
                     @endif
                 </p>
             </div>

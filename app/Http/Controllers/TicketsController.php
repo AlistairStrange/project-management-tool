@@ -87,6 +87,7 @@ class TicketsController extends Controller
      */
     public function store(CreateTicketValidator $request)
     {
+
         $this->authorize('create', Ticket::class);
         
         $ticket = Ticket::create([
@@ -96,6 +97,7 @@ class TicketsController extends Controller
             'contact' => $request->contact,
             'priority' => $request->priority,
             'deadline' => $request->deadline,
+            'story_points' => (int)$request->story_points,
         ]);
 
         // Associating the ticket with specific user (assignee = owner)
@@ -183,6 +185,7 @@ class TicketsController extends Controller
             'contact' => $request->contact,
             'deadline' => $request->deadline,
             'priority' => $request->priority,
+            'story_points' => (int)$request->story_points,
         ]);
 
         $change = $ticket->getChanges();

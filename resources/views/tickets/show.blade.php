@@ -47,12 +47,24 @@
                    </div>
                    <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                        <div class="mb-8">
+                        <p class="text-sm text-gray-600 float-right">
+                            Complexity: 
+                             @if($ticket->story_points)
+                                {{ $ticket->story_points }}
+                                @if($ticket->story_points == 1)
+                                    point
+                                @else
+                                    points
+                                @endif
+                             @endif
+                        </p>
+
                            <p class="text-sm text-gray-600 flex items-center">
-                           {{ $ticket->project . '-' . $ticket->id }}
+                                {{ $ticket->project . '-' . $ticket->id }}
                            </p>
+
                            <div class="text-gray-900 font-bold text-xl mb-2">
                                {{ $ticket->subject }}
-                               
                            </div>
                            
                            <p class="trix-content">
@@ -75,8 +87,6 @@
                                 </ul>
                             @endforeach
                          </div>
-
-                           
                        </div>
 
                        <div class="grid grid-rows-1 grid-flow-col flex items-center">

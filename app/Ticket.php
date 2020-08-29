@@ -22,6 +22,7 @@ class Ticket extends Model implements HasMedia
         'contact',
         'deadline',
         'status',
+        'story_points',
     ];
 
     // Relationships

@@ -30,6 +30,7 @@ class UpdateTicketValidator extends FormRequest
             'contact' => 'required|email',
             'deadline' => 'nullable|date',
             'priority' => 'required',
+            'story_points' => 'integer|nullable|in:1,2,3,4,5',
         ];
     }
 }

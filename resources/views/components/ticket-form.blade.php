@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-4 gap-2">
+    <div class="grid grid-cols-5 gap-2">
         <div class="mb-3 col-span-2">
             <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="deadline">
                 Deadline
@@ -106,12 +106,26 @@
                 <option value="urgent" {{ isset($ticket) && $ticket->priority == 'urgent' ? 'selected' : '' }}>Urgent</option>
                 <option value="blocker" {{ isset($ticket) && $ticket->priority == 'blocker' ? 'selected' : '' }}>Blocker</option>
             </select>
+        </div>
+
+        <div class="float-right col-span-1">
+            <label class="block text-gray-500 font-bold mb-2 md:mb-2 pr-4" for="priority">
+                SP
+            </label>
+
+            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-500 py-2 px-4 pr-8 rounded leading-tight
+                focus:outline-none focus:bg-white focus:border-purple-500" name="story_points">
+                <option value='1' {{ isset($ticket) && $ticket->story_points == 1 ? 'selected' : ''}}>1 p.</option>
+                <option value='2' {{ isset($ticket) && $ticket->story_points == 2 ? 'selected' : ''}}>2 p.</option>
+                <option value='3' {{ isset($ticket) && $ticket->story_points == 3 ? 'selected' : ''}}>3 p.</option>
+                <option value='4' {{ isset($ticket) && $ticket->story_points == 4 ? 'selected' : ''}}>4 p.</option>
+                <option value='5' {{ isset($ticket) && $ticket->story_points == 5 ? 'selected' : ''}}>5 p.</option>
+            </select>
 
             <div class="mt-5 mb-5 float-right">
                 <button type="submit" class="bg-teal-500 hover:bg-blue-700 text-white font-bold p-3 rounded my-1">
                     {{ isset($ticket) ? 'Update' : 'Create' }}
                 </button>
             </div>
-
         </div>
 </form>

@@ -31,6 +31,7 @@ class CreateTicketValidator extends FormRequest
             'deadline' => 'nullable|date',
             'priority' => 'required',
             'project' => 'required|integer',
+            'story_points' => 'integer|nullable|in:1,2,3,4,5'
         ];
     }
 }
