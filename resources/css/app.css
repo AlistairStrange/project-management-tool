@@ -14,12 +14,26 @@ input:checked + svg {
 }
 
 /* Styling of jQuery's autocomplete pluging / widget */
-.ui-widget-content {
-    border: none;
-    font-size: 0.8em;
-    color: grey;
+.ui-autocomplete {
+    cursor: pointer !important;
 }
 
-.ui-menu-item {
-    padding-top: 1.5rem;
+.ui-widget-content {
+    border: none !important;
+    font-size: 1em !important;
+    color: grey !important;
+}
+
+.ui-menu .ui-menu-item {
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+}
+
+.ui-menu .ui-menu-item:hover {
+    background: #38b2ac8a !important;
+}
+
+.ui-menu-item-wrapper {
+    border: none !important;
+    background: none !important;
 }
