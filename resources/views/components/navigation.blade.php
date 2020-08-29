@@ -41,7 +41,7 @@
             
         </div>
 
-        <form class="mx-24 flex-grow text-center" action="post">
+        <form class="mx-24 flex-grow text-center" method="GET" action="{{ route('report-getData') }}">
             @csrf
 
             <input class="w-full text-center text-gray-500 py-1 px-3 pr-8 rounded leading-none focus:outline-none

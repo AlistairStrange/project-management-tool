@@ -8,6 +8,7 @@ use App\ProjectBoard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\TicketsController;
 
 class ReportsController extends Controller
 {
@@ -66,39 +67,49 @@ class ReportsController extends Controller
         $request->flash();
         $request->session()->reflash();
 
-
         $data = new Ticket();
         $data = $data->newQuery();
 
-        if($request->projects) {
-            $data->whereIntegerInRaw('project_board_id', $request->projects);
+        // IF the search term is submitted via main SEARCH field in NAVIGATION
+        if($request->search) {
+            $data->where('subject', 'like', '%' . $request->search . '%')
+            ->orWhere('description', 'like', '%' . $request->search . '%')
+            ->orWhere('contact', 'like', '%' . $request->search . '%')
+            ->orWhere('reporter', 'like', '%' . $request->search . '%')
+            ->get();
+        } else {
+            // ELSE we suppose it's submitted via reports view
+            if($request->projects) {
+                $data->whereIntegerInRaw('project_board_id', $request->projects);
+            }
+    
+            if($request->status) {
+                $data->whereIn('status', $request->status);
+            }
+    
+            if($request->users) {
+                $data->whereIntegerInRaw('assignee_id', $request->users);
+            }
+    
+            if($request->contact) {
+                $data->where('contact', $request->contact);
+            }
+    
+            if($request->reporter) {
+                $data->where('reporter', $request->reporter);
+            }
+    
+            if($request->daterange) {
+                $dates = explode(" - ", $request->daterange);
+    
+                $startdate = $dates[0];
+                $enddate = $dates[1];
+    
+                $data->whereDate('created_at', '>=', $startdate);
+                $data->whereDate('created_at', '<=', $enddate);
+            }
         }
 
-        if($request->status) {
-            $data->whereIn('status', $request->status);
-        }
-
-        if($request->users) {
-            $data->whereIntegerInRaw('assignee_id', $request->users);
-        }
-
-        if($request->contact) {
-            $data->where('contact', $request->contact);
-        }
-
-        if($request->reporter) {
-            $data->where('reporter', $request->reporter);
-        }
-
-        if($request->daterange) {
-            $dates = explode(" - ", $request->daterange);
-
-            $startdate = $dates[0];
-            $enddate = $dates[1];
-
-            $data->whereDate('created_at', '>=', $startdate);
-            $data->whereDate('created_at', '<=', $enddate);
-        }
 
         // Returning all variables (Projects, Statuses & Users) for dropdowns
         // Returning data for displaying filterd out data from database
