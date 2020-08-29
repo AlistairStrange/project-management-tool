@@ -19335,6 +19335,14 @@ input:checked + svg {
   background: none !important;
 }
 
+/* DROPZONE styles */
+
+.dropzone {
+  background: none !important;
+  border: #8080803d dashed 0.15rem !important;
+  color: #808080a3 !important;
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;

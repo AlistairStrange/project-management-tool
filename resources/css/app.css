@@ -37,3 +37,10 @@ input:checked + svg {
     border: none !important;
     background: none !important;
 }
+
+/* DROPZONE styles */
+.dropzone {
+    background: none !important;
+    border: #8080803d dashed 0.15rem !important;
+    color: #808080a3 !important;
+}
