@@ -34,17 +34,29 @@
                             </td>
 
                             <td class="px-4 py-2 text-center">
-                                <a href="{{ route('user.show', $user) }}">
-                                    <button class="border-solid border-2 border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white py-1 px-2 rounded">
-                                        Details
-                                    </button>
+                                <a href="{{ route('user.show', $user) }}" class="inline-block mx-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal text-gray-600 hover:text-teal-700">
+                                        <circle cx="12" cy="12" r="1"/>
+                                        <circle cx="19" cy="12" r="1"/>
+                                        <circle cx="5" cy="12" r="1"/>
+                                    </svg>
                                 </a>
 
-                                <a href="#">
-                                    <button class="border-solid border-2 border-red-500 hover:bg-red-500 text-red-500 hover:text-white py-1 px-2 rounded ml-2">
-                                        Remove
+                                <form action="{{ route('user.destroy', $user) }}" method="POST" class="inline-block">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="inline-block mx-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-gray-600 hover:text-red-700">
+                                            <polyline points="3 6 5 6 21 6"/>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                            <line x1="10" y1="11" x2="10" y2="17"/>
+                                            <line x1="14" y1="11" x2="14" y2="17"/>
+                                        </svg>
                                     </button>
-                                </a>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
