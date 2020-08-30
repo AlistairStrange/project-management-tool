@@ -47,13 +47,19 @@
             <input class="w-full text-center text-gray-500 py-1 px-3 pr-8 rounded leading-none focus:outline-none
              focus:bg-white border focus:border-purple-500 focus:shadow-outter" type="text" name="search" id="tickets_search"
               placeholder="Search the tickets - description, contacts, reporters etc...">
+
+            <svg class="text-gray-500 absolute float-right -ml-8 mt-1 inline" xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
         </form>
 
 
             
         <div class="text-right">
             <a href="{{ route('create-ticket') }}" class="inline-block text-sm px-4 py-2 mr-4 leading-none border rounded text-white border-white
-                hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Create a ticket</a>
+                hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 font-semibold">
+                Create a ticket
+            </a>
             @guest
                 <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{ route('login') }}">{{ __('Login') }}</a>
                 @if (Route::has('register'))
