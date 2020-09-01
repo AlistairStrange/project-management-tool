@@ -46,6 +46,9 @@ Route::post('complete-todo/{list}', 'TodosController@completed')->name('todo.com
 Route::get('report-tickets', 'ReportsController@index')->name('report-tickets');
 Route::get('get-tickets', 'ReportsController@getData')->name('report-getData');
 
+// Comments manual routes
+Route::post('{ticket}/comment', 'CommentsController@store')->name('comment.store');
+
 // Tickets Resource
 Route::resource('ticket', 'TicketsController')->names([
     'create' => 'create-ticket',

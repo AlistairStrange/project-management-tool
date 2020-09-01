@@ -111,10 +111,12 @@
                                <p class="text-gray-600">{{ $ticket->deadline }}</p>
                            </div>
                        </div>
+
+                   <x-comments :ticket="$ticket"></x-comments>
+
                    </div>
                </div>
            </div>
        </div>
     </div>
-
 @endsection

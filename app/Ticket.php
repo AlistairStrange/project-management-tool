@@ -41,6 +41,11 @@ class Ticket extends Model implements HasMedia
         return $this->hasMany('App\Todo');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'ticket_id');
+    }
+
 
     /**
      * Local Scope functions for retrieving tickets based on status
