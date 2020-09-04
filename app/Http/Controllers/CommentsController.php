@@ -47,41 +47,13 @@ class CommentsController extends Controller
         $user->comments()->save($comment);
         $ticket->comments()->save($comment);
 
+        // If it's not regular comment but reply, set parent comment relationship
+        if($request->reply) {
+            $parent = Comment::findOrFail($request->reply);
+            $parent->replies()->save($comment);
+        }
+
         return redirect()->back()->with('status', 'Comment added successfully');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Comment $comment)
-    {
-        //Not needed at the moment
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comment $comment)
-    {
-        //Not needed at the moment
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Comment $comment)
-    {
-        //Not needed at the moment
     }
 
     /**
@@ -92,6 +64,8 @@ class CommentsController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect()->back()->with('status', 'Comment removed successfully');
     }
 }

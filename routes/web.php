@@ -48,6 +48,7 @@ Route::get('get-tickets', 'ReportsController@getData')->name('report-getData');
 
 // Comments manual routes
 Route::post('{ticket}/comment', 'CommentsController@store')->name('comment.store');
+Route::delete('comment/{comment}', 'CommentsController@destroy')->name('comment.delete');
 
 // Tickets Resource
 Route::resource('ticket', 'TicketsController')->names([

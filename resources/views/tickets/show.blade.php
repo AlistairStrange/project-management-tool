@@ -32,7 +32,7 @@
                                 </li>
                             </form>
     
-                            <a class="hover:bg-teal-600" href="#">
+                            <a class="hover:bg-teal-600" href="#comment-section">
                                 <li class="m-4 col-span-1">
                                     Comment
                                 </li>
@@ -112,6 +112,7 @@
                            </div>
                        </div>
 
+                    <!-- Comments Section -->
                    <x-comments :ticket="$ticket"></x-comments>
 
                    </div>
