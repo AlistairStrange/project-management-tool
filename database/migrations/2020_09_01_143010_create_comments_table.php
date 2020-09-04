@@ -28,7 +28,10 @@ class CreateCommentsTable extends Migration
 
             // Comment-Comment / reply self relationship
             $table->bigInteger('comment_parent_id')->unsigned()->nullable();
-            $table->foreign('comment_parent_id')->references('id')->on('comments');
+            $table->foreign('comment_parent_id')
+            ->references('id')
+            ->on('comments')
+            ->onDelete('cascade');
 
             $table->timestamps();
         });

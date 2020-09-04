@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
+    public function __construct() 
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -64,6 +69,10 @@ class CommentsController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $this->authorize('delete', $comment);
+
+        $comment->replies()->delete();
+
         $comment->delete();
 
         return redirect()->back()->with('status', 'Comment removed successfully');

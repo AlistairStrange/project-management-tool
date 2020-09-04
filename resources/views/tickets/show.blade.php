@@ -47,17 +47,17 @@
                    </div>
                    <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                        <div class="mb-8">
-                        <p class="text-sm text-gray-600 float-right">
-                            Complexity: 
-                             @if($ticket->story_points)
-                                {{ $ticket->story_points }}
-                                @if($ticket->story_points == 1)
-                                    point
-                                @else
-                                    points
+                            <p class="text-sm text-gray-600 float-right">
+                                Complexity: 
+                                @if($ticket->story_points)
+                                    {{ $ticket->story_points }}
+                                    @if($ticket->story_points == 1)
+                                        point
+                                    @else
+                                        points
+                                    @endif
                                 @endif
-                             @endif
-                        </p>
+                            </p>
 
                            <p class="text-sm text-gray-600 flex items-center">
                                 {{ $ticket->project . '-' . $ticket->id }}
@@ -65,7 +65,16 @@
 
                            <div class="text-gray-900 font-bold text-xl mb-2">
                                {{ $ticket->subject }}
+
+                                <a href="#comment-section" class="text-sm font-semibold text-gray-500 hover:text-gray-600 float-right">                                    
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square inline">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                    </svg>
+                                    {{ $ticket->comments->count() }}
+                                </a>
                            </div>
+
                            
                            <p class="trix-content">
                                {!! $ticket->description !!}

@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Todo;
 use App\Ticket;
+use App\Comment;
 use App\ProjectBoard;
 use App\Policies\TodoPolicy;
 use App\Policies\TicketPolicy;
+use App\Policies\CommentPolicy;
 use App\Policies\ProjectBoardPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -24,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         Todo::class => TodoPolicy::class,
         TodoItem::class => TodoItemPolicy::class,
         Ticket::class => TicketPolicy::class,
+        Comment::class => CommentPolicy::class,
     ];
 
     /**

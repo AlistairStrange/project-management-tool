@@ -23,20 +23,21 @@
                     </div>
                     
                     <!-- Comment's content -->
-                    <div class="container col-span-4 flex">
+                    <div class="container col-span-4 text-gray-600 flex">
                         {{ $comment->content }}
 
-                        {{-- Delete button --}}
-                        <form action="{{ route('comment.delete', $comment) }}#comment-section" method="post" class="flex-grow">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="float-right text-gray-500 hover:text-gray-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                                    <line x1="18" y1="6" x2="6" y2="18"/>
-                                    <line x1="6" y1="6" x2="18" y2="18"/>
-                                </svg>
-                            </button>
-                        </form>
+                        @can('delete', $comment)
+                            <form action="{{ route('comment.delete', $comment) }}#comment-section" method="post" class="flex-grow">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="float-right text-gray-500 hover:text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"/>
+                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        @endcan
                     </div>
                     
                 </div>
@@ -58,8 +59,22 @@
                         </div>
 
                         <!-- Comment's content -->
-                        <div class="container col-span-4">
+                        <div class="container col-span-4 text-gray-600 flex">
                             {{ $reply->content }}
+
+                            @can('delete', $reply)
+                                <form action="{{ route('comment.delete', $reply) }}#comment-section" method="post" class="flex-grow">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="float-right text-gray-500 hover:text-gray-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"/>
+                                            <line x1="6" y1="6" x2="18" y2="18"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            @endcan
+
                         </div>
                     </div>
                 @endforeach
