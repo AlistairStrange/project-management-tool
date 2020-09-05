@@ -49,7 +49,7 @@
                             <a href="{{ url('/home') }}" class="no-underline hover:text-teal-400 text-sm font-normal text-teal-800 uppercase">{{ __('Home') }}</a>
                         @else
                             <!-- <a href="{{ route('login') }}" class="no-underline hover:text-teal-400 text-sm font-normal text-teal-800 uppercase pr-6">{{ __('Login') }}</a> -->
-                            <a href="" id="login-btn" class="no-underline hover:text-teal-400 text-sm font-normal uppercase pr-6">
+                            <a href="" id="login-btn" class="no-underline hover:text-teal-400 text-sm font-normal uppercase pr-6 mx-2">
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="feather feather-log-in inline-block"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
@@ -61,7 +61,7 @@
                             
                             </a>
                             @if (Route::has('register'))
-                                <a href="" id="register-btn" class="no-underline hover:text-teal-400 text-sm font-normal uppercase">
+                                <a href="" id="register-btn" class="no-underline hover:text-teal-400 text-sm font-normal uppercase mx-2">
                                 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                              stroke-linejoin="round" class="feather feather-edit-3 inline-block">
