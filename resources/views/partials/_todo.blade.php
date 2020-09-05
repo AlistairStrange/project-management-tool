@@ -96,13 +96,9 @@
                 <div class="h-full w-full float">
                     <div class="col-span-3 mr-2 h-full w-full">
                         <input class="text-center flex-1 bg-gray-100 appearance-none border border-gray-100 rounded py-2 px-2 
-                            text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 h-full w-full" name="listSubject"
+                            text-gray-600 leading-tight focus:outline-none h-full w-full" name="listSubject"
                             type="text" placeholder="Create New To-Do list">
                     </div>
-        
-                    <!-- <div class="relative -m-16 z-10 bg-gray-400 rounded-full h-8 w-8 flex items-center justify-center text-white font-bold text-3xl pb-2 hover:bg-gray-600 mx-auto">
-                        <button type="submit">+</button>
-                    </div> -->
                 </div>                            
             </form>                                
 
