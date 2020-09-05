@@ -27,9 +27,11 @@
 <body class="bg-gray-100 h-screen antialiased leading-none">
     <div id="app">
 
-        <!-- NAVIGATION -->
-        <x-navigation/>
-
+        <!-- NAVIGATION - don't show for login, register & password recovery routes -->
+        @auth
+            <x-navigation/>
+        @endauth
+        
         @include('partials._status')
 
         @yield('content')
