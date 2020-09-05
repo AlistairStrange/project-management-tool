@@ -1,7 +1,18 @@
 <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6 mb-5">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
-        <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
-        <span class="font-semibold text-xl tracking-tight">Ticketify</span>
+        <a href="/" class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+        aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink" stroke="currentColor" width="24" height="24">
+                <path data-name="layer2"
+                d="M55 18.7A6.9 6.9 0 0 1 45.3 9l-7-7L2 38.3l7 7a6.9 6.9 0 0 1 9.7 9.7l7 7L62 25.7z"
+                fill="none" stroke-miterlimit="10" stroke-width="3" stroke-linejoin="round"
+                stroke-linecap="round"></path>
+                <path data-name="layer1" d="M30.6 46a3 3 0 0 1-4.2 0L18 37.6a3 3 0 0 1 0-4.2L33.4 18a3 3 0 0 1 4.2 0l8.4 8.4a3 3 0 0 1 0 4.2z"
+                fill="none" stroke-miterlimit="10" stroke-width="3" stroke-linejoin="round"
+                stroke-linecap="round"></path>
+            </svg>
+            <span class="ml-1 font-semibold text-xl tracking-tight">Ticketify</span>
+        </a>
     </div>
     <div class="block lg:hidden">
         <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
