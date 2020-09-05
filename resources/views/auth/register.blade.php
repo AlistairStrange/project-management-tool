@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@auth
+    @extends('layouts.app')
+@endauth
 
 @section('content')
-    <div class="container mx-auto">
+    <div class="container mx-auto mt-8">
         <div class="flex flex-wrap justify-center">
             <div class="w-full max-w-sm">
                 <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
@@ -64,16 +66,16 @@
                         </div>
 
                         <div class="flex flex-wrap">
-                            <button type="submit" class="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-gray-100 bg-blue-500 hover:bg-blue-700">
+                            <button type="submit" class="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-gray-100 bg-teal-400 hover:bg-teal-500">
                                 {{ __('Register') }}
                             </button>
 
-                            <p class="w-full text-xs text-center text-gray-700 mt-8 -mb-4">
+                            <!-- <p class="w-full text-xs text-center text-gray-700 mt-8 -mb-4">
                                 {{ __('Already have an account?') }}
                                 <a class="text-blue-500 hover:text-blue-700 no-underline" href="{{ route('login') }}">
                                     {{ __('Login') }}
                                 </a>
-                            </p>
+                            </p> -->
                         </div>
                     </form>
 
