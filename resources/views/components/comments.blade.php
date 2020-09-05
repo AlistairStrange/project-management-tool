@@ -19,7 +19,15 @@
                         on {{ $comment->created_at }}
                         </p>
                         
-                        <a href="#reply-form-{{ $comment->id }}" reply-to="reply-form-{{ $comment->id }}" class="reply-btn text-xs font-thin text-teal-400 hover:text-teal-600">Reply</a>
+                        <a href="#reply-form-{{ $comment->id }}" reply-to="reply-form-{{ $comment->id }}" 
+                        class="reply-btn text-xs font-thin text-teal-400 hover:text-teal-600 text-right w-6/12 inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-corner-down-right inline-block">
+                            <polyline points="15 10 20 15 15 20"/>
+                            <path d="M4 4v7a4 4 0 0 0 4 4h12"/>
+                         </svg>
+                            Reply
+                        </a>
                     </div>
                     
                     <!-- Comment's content -->
@@ -109,7 +117,7 @@
         $(".reply-btn").click(function() {
             var id = '#' + $(this).attr("reply-to");
 
-            $(id).toggle();
+            $(id).toggle(600, 'swing');
         });
     });
 </script>
