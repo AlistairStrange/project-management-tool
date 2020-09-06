@@ -1,26 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex items-center">
-        <div class="md:w-1/2 md:mx-auto">
+    <div class="mx-auto items-center w-3/4">
+        <div class="mx-auto grid grid-cols-12 gap-2 w-full">
+            <div class="col-span-4 w-full">
+                <x-latest-tickets/>
 
-            @if (session('status'))
-                <div class="text-sm border border-t-8 rounded text-green-700 border-green-600 bg-green-100 px-3 py-4 mb-4" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md">
-
-                <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
-                    Dashboard
-                </div>
-
-                <div class="w-full p-6">
-                    <p class="text-gray-700">
-                        You are logged in!
-                    </p>
-                </div>
+                <x-latest-comments/>
+            </div>
+        
+            <div class="col-span-8 w-full">
+                <!-- Placeholder for Graphs & Charts -->
             </div>
         </div>
     </div>
