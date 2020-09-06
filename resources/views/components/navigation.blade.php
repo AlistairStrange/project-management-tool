@@ -1,6 +1,6 @@
 <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6 mb-5">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
-        <a href="/" class="flex">
+        <a href="{{ route('home') }}" class="flex">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
         aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink" stroke="currentColor" width="24" height="24">
                 <path data-name="layer2"
