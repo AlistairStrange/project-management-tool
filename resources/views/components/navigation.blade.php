@@ -15,7 +15,7 @@
         </a>
     </div>
     <div class="block lg:hidden">
-        <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+        <button class="flex items-center px-3 py-2 border rounded text-white border-teal-400  hover:border-white">
         <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
         </button>
     </div>
@@ -23,7 +23,7 @@
         <div class="text-sm">
             <!-- Dropdown for Projects - showing availaible project boards -->
             <div class="dropdown inline-block relative">
-                <a href="{{ route('project.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                <a href="{{ route('project.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-white  mr-4">
                     Projects
                 </a>
                 
@@ -41,11 +41,11 @@
                 </ul>
             </div>
 
-            <a href="{{ route('users-tickets') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            <a href="{{ route('users-tickets') }}" class="block mt-4 lg:inline-block lg:mt-0 text-white  mr-4">
                 My Tickets
             </a>
 
-            <a href="{{ route('report-tickets') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            <a href="{{ route('report-tickets') }}" class="block mt-4 lg:inline-block lg:mt-0 text-white  mr-4">
                 Reports
             </a>
             
@@ -77,13 +77,13 @@
                     <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{ route('register') }}">{{ __('Register') }}</a>
                 @endif
             @else                   
-            <span class="text-gray-300 text-sm pr-4">{{ Auth::user()->name }}</span>
+            <span class="text-white text-sm pr-4">{{ Auth::user()->name }}</span>
             
             {{-- USER management if USER is admin ONLY --}}
-            <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{ route('user.index') }}">Users</a>
+            <a class="no-underline hover:underline text-white text-sm p-3" href="{{ route('user.index') }}">Users</a>
 
                 <a href="{{ route('logout') }}"
-                    class="no-underline hover:underline text-gray-300 text-sm p-3"
+                    class="no-underline hover:underline text-white text-sm p-3"
                     onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
