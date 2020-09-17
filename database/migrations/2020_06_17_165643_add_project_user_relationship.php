@@ -43,8 +43,8 @@ class AddProjectUserRelationship extends Migration
     public function down()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->dropForeign('user_id');
-            $table->dropForeign('project_board_id');
+            $table->dropForeign('tickets_assignee_id_foreign');
+            $table->dropForeign('tickets_project_board_id_foreign');
         });
 
         Schema::dropIfExists('project_boards_users');

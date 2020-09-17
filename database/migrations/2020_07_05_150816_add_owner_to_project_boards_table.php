@@ -29,7 +29,7 @@ class AddOwnerToProjectBoardsTable extends Migration
     public function down()
     {
         Schema::table('project_boards', function (Blueprint $table) {
-            $table->dropForeign('owner_id');
+            $table->dropForeign('project_boards_owner_id_foreign');
             $table->dropColumn('owner_id');
         });
     }
