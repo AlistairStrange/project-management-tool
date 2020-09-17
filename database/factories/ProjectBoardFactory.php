@@ -1,15 +1,31 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Model;
 use App\ProjectBoard;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-$factory->define(ProjectBoard::class, function (Faker $faker) {
-    return [
-        'name' => $faker->text(25),
-        'description' => $faker->text(100),
-        'abbreviation' => $faker->regexify('[A-Z]{4}'),
-    ];
-});
+class ProjectBoardFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ProjectBoard::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->text(25),
+            'description' => $this->faker->text(100),
+            'abbreviation' => $this->faker->regexify('[A-Z]{4}'),
+        ];
+    }
+}

@@ -2,16 +2,21 @@
 
 namespace App;
 
+// use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 // use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Ticket extends Model implements HasMedia
 {
     use SoftDeletes;
-    use HasMediaTrait;
+    // use HasMediaTrait;
+    use InteractsWithMedia;
+    use HasFactory;
 
     protected $fillable = [
         'subject',
