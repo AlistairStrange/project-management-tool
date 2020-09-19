@@ -11,6 +11,7 @@
         
             <div class="col-span-8 w-full">
                 <!-- Placeholder for Graphs & Charts -->
+                <x-graph-charts/>
             </div>
         </div>
     </div>
