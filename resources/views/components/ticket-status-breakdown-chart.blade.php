@@ -12,14 +12,15 @@
             var options = {
             legend: { position: 'none' },
             bars: 'vertical',
-            colors: ['#3fd1ca'],
-            chartArea: {"backgroundColor": '#fff0', "height": '70%', "width": '70%'},
-            animation: {"startup": true, "duration": 400,},
             explorer: {},
+            animation: {"startup": true, "duration": 400,},
+            colors: ['#3fd1ca'],
+            backgroundColor: 'none',
+            chartArea: {"backgroundColor": 'none', "height": '70%', "width": '70%'},
             };
 
             var BarChart = new google.charts.Bar(document.getElementById('bar-chart-container'));
-            BarChart.draw(data, options);
+            BarChart.draw(data, google.charts.Bar.convertOptions(options));
         }
     </script>
 @endsection
