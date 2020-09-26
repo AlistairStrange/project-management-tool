@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Ticket;
-use App\Comment;
 use Illuminate\Http\Request;
+
 
 class HomeController extends Controller
 {
