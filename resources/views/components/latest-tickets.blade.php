@@ -1,5 +1,5 @@
 @if($tickets)
-    <div class="container mx-auto mt-8">
+    <div class="container mx-auto mt-8 h-full-1/2">
         <div class="flex flex-wrap justify-center">
             <div class="w-full max-w-sm">
                 <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md hover:shadow-lg">
@@ -9,14 +9,17 @@
                     @foreach($tickets as $ticket)
                         <ul class="bg-none">
                             <li>
-                                <div class="bg-gray-100 hover:bg-gray-200 py-4 px-2 rounded-lg grid grid-cols-5">
+                                <div class="bg-gray-100 text-sm hover:bg-gray-200 py-2 px-2 rounded-lg grid grid-cols-5">
                                     <a href="{{route('ticket.show', $ticket)}}" class="col-span-4 hover:text-teal-500">
                                         <span class="block mb-1 text-teal-500">
                                             {{ $ticket->projectBoard->abbreviation }}-{{ $ticket->id }}
                                         </span>
 
                                         <span>
-                                            {{ $ticket->subject }}
+                                            {{ substr($ticket->subject, 0, 30) }}
+                                            @if(strlen($ticket->subject) > 30)
+                                                ...
+                                            @endif
                                         </span>                                                
                                     </a>
 
