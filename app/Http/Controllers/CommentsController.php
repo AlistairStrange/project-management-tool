@@ -6,6 +6,7 @@ use App\Ticket;
 use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateCommentValidator;
 
 class CommentsController extends Controller
 {
@@ -15,32 +16,12 @@ class CommentsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //Not needed at the moment
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Ticket $ticket)
+    public function store(CreateCommentValidator $request, Ticket $ticket)
     {
         // Store the comment
         $comment = Comment::create([
