@@ -1,5 +1,5 @@
 <div class="container mx-auto">
-    <div class="max-w-sm rounded overflow-hidden shadow-md hover:shadow-lg bg-gray-200 hover:bg-gray-300 text-gray-700 mx-4 mt-3 float-left">
+    <div class="max-w-sm rounded overflow-hidden shadow-md hover:shadow-lg bg-cool-gray-200 text-gray-700 mx-4 mt-3 lg:float-left">
     
         <div class="float-left py-2 pl-2">
             @switch($ticket->priority)
@@ -53,8 +53,6 @@
                 <p class="text-xs text-gray-600 float-right px-1 py-1"><span class="font-semibold">Due: </span>{{ $ticket->deadline }}</p>
             </div>
         </div>
-
-
 
         <div class="container">
             <!-- TICKET NAVIGATION -->

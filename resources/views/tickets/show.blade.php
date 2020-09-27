@@ -5,7 +5,7 @@
        <div class="container mx-auto">
            <div class="px-6 py-4">               
                <div class="mx-auto flex overflow-hidden">
-                   <div class="flex-none bg-teal-500 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+                   <div class="flex-none bg-teal-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
                        <!-- Ticket control options PLACEHOLDER -->
                        <!-- E.g. move to closed, in review... -->
                        <!-- Edit -->

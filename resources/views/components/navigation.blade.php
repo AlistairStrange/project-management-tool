@@ -1,4 +1,4 @@
-<nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6 mb-5">
+<nav class="flex items-center justify-between flex-wrap bg-teal-400 p-6 mb-5">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
         <a href="{{ route('home') }}" class="flex">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"

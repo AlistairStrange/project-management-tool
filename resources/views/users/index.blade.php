@@ -16,7 +16,7 @@
                     @foreach($users as $user)
                         <tr class="divide-x divide-gray-400 hover:bg-gray-200">
                             <td class="px-4 py-2">
-                                <a href="#" class="hover:underline text-teal-500">
+                                <a href="{{ route('user.show', $user) }}" class="hover:underline text-teal-500">
                                     {{ $user->name }}
                                 </a>
                             </td>

@@ -45,7 +45,7 @@
         </label>
 
         <select class="select2-dropdown block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight 
-        focus:outline-none focus:bg-white focus:border-gray-500" name="boards[]" multiple="multiple">
+        focus:outline-none focus:bg-white focus:border-gray-500" name="boards[]" multiple="multiple" {{ Auth::user()->isAdmin == 1 ? '' : 'disabled' }}>
             @foreach($boards as $project)
                 <option {{ isset($user) && $user->projects->contains('id', $project->id) ? 'selected' : '' }} value="{{ $project->id }}">{{ $project->abbreviation . " - " . $project->name }}</option>
             @endforeach
@@ -59,7 +59,7 @@
             </label>
             
             <select class="select2-dropdown block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight
-             focus:outline-none focus:bg-white focus:border-purple-500" name="role">
+             focus:outline-none focus:bg-white focus:border-purple-500" name="role" {{ Auth::user()->isAdmin == 1 ? '' : 'disabled' }}>
                 <option {{ isset($user) && $user->role === 'general' ? 'selected' : '' }} value="general">General user</option>
                 <option {{ isset($user) && $user->role === 'coordinator' ? 'selected' : '' }} value="coordinator">Coordinator</option>
                 <option {{ isset($user) && $user->role === 'pm' ? 'selected' : '' }} value="pm">Project Manager</option>
@@ -71,7 +71,9 @@
                 Make admin?
             </label>
             <div class="my-3 mb-3 bg-white border rounded border-gray-400 w-6 h-6 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-blue-500">
-                <input class="opacity-0 absolute" type="checkbox" name="admin" {{ isset($user) && $user->isAdmin == 1 ? 'checked' : '' }} value="1" >
+                <input class="opacity-0 absolute" type="checkbox" name="admin" 
+                {{ Auth::user()->isAdmin == 1 ? '' : 'disabled' }} 
+                {{ isset($user) && $user->isAdmin == 1 ? 'checked' : '' }} value="1" >
                 <svg class="fill-current hidden w-4 h-4 text-teal-500 pointer-events-none mb-" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z"/></svg>
             </div>
         </div>
