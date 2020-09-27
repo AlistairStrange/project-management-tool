@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Todo;
+use App\User;
 use App\Ticket;
 use App\Comment;
 use App\ProjectBoard;
 use App\Policies\TodoPolicy;
+use App\Policies\UserPolicy;
 use App\Policies\TicketPolicy;
 use App\Policies\CommentPolicy;
 use App\Policies\ProjectBoardPolicy;
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         TodoItem::class => TodoItemPolicy::class,
         Ticket::class => TicketPolicy::class,
         Comment::class => CommentPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**

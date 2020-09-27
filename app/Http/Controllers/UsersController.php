@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use App\User;
 use App\ProjectBoard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CreateUserValidator;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {   
         $users = User::orderBy('name', 'asc')->select('id', 'name', 'email', 'role', 'isAdmin')->get();
@@ -24,13 +30,17 @@ class UsersController extends Controller
 
     public function create()
     {
-        $boards = ProjectBoard::all();
+        $this->authorize('create', User::class);
 
+        $boards = ProjectBoard::all();
+        
         return view('users.create')->with('boards', $boards);
     }
 
     public function store(CreateUserValidator $request)
     {        
+        $this->authorize('create', User::class);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -47,6 +57,8 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
+
         $boards = ProjectBoard::all();
         
         return view('users.edit', ['user' => $user,])->with('boards', $boards);
@@ -54,16 +66,23 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $this->authorize('update', $user);
+
         // Updating simple model properties
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'role' => $request->role,
-            'admin' => $request->isAdmin,
         ]);
 
-        // Synchronizing many to many relationship properties (pivot table)
-        $user->projects()->sync($request->boards);
+        if(Auth::user()->isAdmin == 1) {
+            $user->update([
+                'role' => $request->role,
+                'admin' => $request->isAdmin,
+            ]);
+
+            // Synchronizing many to many relationship properties (pivot table)
+            $user->projects()->sync($request->boards);
+        }
 
         return redirect()->route('user.index')->with('status', $user->name . ' successfully updated');
     }

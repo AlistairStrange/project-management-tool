@@ -27,7 +27,6 @@ class CreateUserValidator extends FormRequest
             'name' => 'required|string|min:3|max:40',
             'email' => 'required|email|unique:App\User,email',
             'password' => 'required|min:6|string',
-            'role' => 'required',
             'admin' => 'integer',
         ];
     }
