@@ -35,7 +35,7 @@ class OpenVsClosedChart extends Component
         // ***START Line Chart construct***
         // Returns array of DB records where key is the month abbreviation and
         // value are collections of tickets 
-        $open = DB::table('tickets')->where('status', 'Open')
+        $open = DB::table('tickets')
             ->whereYear('created_at', $currentYear)
             ->orderBy('created_at', 'ASC')
             ->get()
