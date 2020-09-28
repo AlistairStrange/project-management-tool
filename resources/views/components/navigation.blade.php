@@ -25,8 +25,12 @@
             <div class="dropdown inline-block relative">
                 <a href="{{ route('project.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-white  mr-4">
                     Projects
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down inline">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
                 </a>
-                
+                           
                 <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
                     @if($userProjectList !== null)
                         @foreach($userProjectList as $key => $name)
@@ -77,11 +81,12 @@
                     <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{ route('register') }}">{{ __('Register') }}</a>
                 @endif
             @else                   
-            <span class="text-white text-sm pr-4">{{ Auth::user()->name }}</span>
+            <a href="{{ route('user.show', Auth::user()) }}" class="no-underline hover:underline text-white text-sm p-3"> {{ Auth::user()->name   }}</a>
             
-            {{-- USER management if USER is admin ONLY --}}
-            <a class="no-underline hover:underline text-white text-sm p-3" href="{{ route('user.index') }}">Users</a>
-
+            @if(Auth::user()->isAdmin == 1)
+                <a class="no-underline hover:underline text-white text-sm p-3" href="{{ route('user.index') }}">Users</a>
+            @endif
+                
                 <a href="{{ route('logout') }}"
                     class="no-underline hover:underline text-white text-sm p-3"
                     onclick="event.preventDefault();
