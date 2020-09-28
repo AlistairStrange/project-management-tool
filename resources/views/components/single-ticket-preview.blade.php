@@ -1,5 +1,5 @@
 <div class="container mx-auto">
-    <div class="max-w-sm rounded overflow-hidden shadow-md hover:shadow-lg bg-cool-gray-200 text-gray-700 mx-4 mt-3 lg:float-left">
+    <div class="max-w-sm rounded overflow-hidden shadow-md hover:shadow-lg border border-opacity-500 hover:border-teal-300 bg-cool-gray-200 text-gray-700 mx-4 mt-3 lg:float-left">
     
         <div class="float-left py-2 pl-2">
             @switch($ticket->priority)
