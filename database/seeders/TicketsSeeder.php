@@ -15,7 +15,7 @@ class TicketsSeeder extends Seeder
     {
         // factory(App\Ticket::class, 30)->create();
         Ticket::factory()
-            ->times(30)
+            ->times(100)
             ->create();
     }
 }
