@@ -3,13 +3,14 @@ namespace Database\Seeders;
 
 use App\User;
 use App\ProjectBoard;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
-use Database\Seeders\TicketsSeeder;
-use Database\Seeders\ProjectBoardSeeder;
 use Illuminate\Support\Facades\DB;
+use Database\Seeders\CommentSeeder;
+use Database\Seeders\TicketsSeeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Database\Seeders\ProjectBoardSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(ProjectBoardSeeder::class);
         $this->call(TicketsSeeder::class);
+        $this->call(CommentSeeder::class);
 
         // Add Users to specific project board 
         $projects = ProjectBoard::all();
