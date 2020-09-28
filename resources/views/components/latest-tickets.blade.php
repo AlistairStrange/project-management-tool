@@ -2,14 +2,14 @@
     <div class="container mx-auto mt-8 h-full-1/2">
         <div class="flex flex-wrap justify-center">
             <div class="w-full max-w-sm">
-                <div class="flex flex-col break-words bg-white border border-2 rounded shadow-md hover:shadow-lg">
+                <div class="flex flex-col break-words border border-2 rounded shadow-md hover:shadow-lg">
                     <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
                         Latest Tickets
                     </div>
                     @foreach($tickets as $ticket)
                         <ul class="bg-none">
                             <li>
-                                <div class="bg-gray-100 text-sm hover:bg-gray-200 py-2 px-2 rounded-lg grid grid-cols-5">
+                                <div class="bg-gray-100 bg-opacity-25 text-sm hover:bg-gray-200 py-2 px-4 grid grid-cols-5">
                                     <a href="{{route('ticket.show', $ticket)}}" class="col-span-4 hover:text-teal-500">
                                         <span class="block mb-1 text-teal-500">
                                             {{ $ticket->projectBoard->abbreviation }}-{{ $ticket->id }}

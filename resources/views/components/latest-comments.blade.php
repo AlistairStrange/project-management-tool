@@ -9,7 +9,7 @@
                     @foreach($comments as $comment)
                         <ul class="bg-none">
                             <li>
-                                <div class="bg-gray-100 text-sm hover:bg-gray-200 py-2 px-2 rounded-lg grid grid-cols-5">
+                                <div class="bg-gray-100 bg-opacity-25 text-sm hover:bg-gray-200 py-2 px-4 grid grid-cols-5">
                                     <a href="{{route('ticket.show', $comment->ticket)}}#comment-section" class="col-span-4 hover:text-teal-500">
                                         <span class="block mb-1 text-teal-500">
                                             {{ $comment->user->name }}
