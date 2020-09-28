@@ -6,11 +6,6 @@
            <div class="px-6 py-4">               
                <div class="mx-auto flex overflow-hidden">
                    <div class="flex-none bg-teal-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
-                       <!-- Ticket control options PLACEHOLDER -->
-                       <!-- E.g. move to closed, in review... -->
-                       <!-- Edit -->
-                       <!-- Comment -->
-                       <!-- etc -->
                         <ul class="grid grid-cols-1 items-center divide-y divide-gray-400 text-white">
                             <a class="hover:bg-teal-600" href="{{ route('edit-ticket', $ticket->id) }}">
                                 <li class="m-4 col-span-1">
@@ -18,11 +13,63 @@
                                 </li>
                             </a>
     
-                            <a class="hover:bg-teal-600" href="#">
-                                <li class="m-4 col-span-1">
-                                    Move to
-                                </li>
-                            </a>
+                            <li class="hover:bg-teal-600 dropdown relative py-3 col-span-1">
+                                Actions
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down inline">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                 </svg>
+
+                                <div class="container absolute hidden dropdown-menu bg-cool-gray-400 rounded">
+                                        <!-- Previous STATUS -->
+                                        @if($ticket->status !== 'Open')
+                                            <a class="block py-4 hover:bg-cool-gray-500 text-sm" href="{{ route('status-previous', $ticket) }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left inline">
+                                                    <polyline points="15 18 9 12 15 6"/>
+                                                </svg>
+                                                @switch($ticket->status)
+                                                    @case('Closed')
+                                                        Re-Open
+                                                        @break
+                                                    @case('In Review')
+                                                        Back to QA
+                                                        @break
+                                                    @case('QA')
+                                                        Needs Work
+                                                        @break
+                                                    @case('In Progress')
+                                                        Back to Open
+                                                        @break
+                                                @endswitch
+                                            </a>
+                                        @endif
+
+                                        @if($ticket->status !== 'Closed')
+                                            <a class="block py-4 hover:bg-cool-gray-500 text-sm" href="{{ route('status-next', $ticket) }}">
+                                                <!-- NEXT STATUS -->
+                                                @switch($ticket->status)
+                                                    @case('Open')
+                                                        Start work
+                                                        @break
+                                                    @case('In Review')
+                                                        Close
+                                                        @break
+                                                    @case('QA')
+                                                        To Review
+                                                        @break
+                                                    @case('In Progress')
+                                                        Ready for QA
+                                                        @break
+                                                @endswitch
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right inline">
+                                                    <polyline points="9 18 15 12 9 6"/>
+                                                </svg>
+                                            </a>       
+                                        @endif 
+                                </div>
+                            </li>
     
                             <form class="hover:bg-teal-600" action="{{ route('ticket.destroy', $ticket->id) }}" method="POST">
                                 @csrf
