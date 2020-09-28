@@ -33,10 +33,6 @@ class TodosController extends Controller
         $ticket->todos()->save($list);
         $user->todos()->save($list);
 
-        // Send Email Notofication
-        $change = 'New To-Do list created!';
-        $this->sendEmailNotification($list, $change);
-
         return redirect()->back()->with('status', 'New To-Do list created successfully');
     }
 
