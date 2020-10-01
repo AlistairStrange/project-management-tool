@@ -138,7 +138,7 @@ class ProjectBoardController extends Controller
         
         $project->delete();
 
-        return redirect()->route('home')->with('status', 'Ticket successfully deleted');
+        return redirect()->route('home')->with('status', 'Board successfully deleted');
     }
 
     /**

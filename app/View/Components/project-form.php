@@ -6,6 +6,7 @@ use Illuminate\View\Component;
 
 class project-form extends Component
 {
+    
     public $project = "";
 
     /**
