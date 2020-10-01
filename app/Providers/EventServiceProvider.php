@@ -25,7 +25,11 @@ class EventServiceProvider extends ServiceProvider
 
         'App\Events\TodoChanged' => [
             'App\Listeners\SendEmailNotificationTodo',
-        ]
+        ],
+
+        'App\Events\CommentNotifications' => [
+            'App\Listeners\SendEmailNotificationComment',
+        ],
     ];
 
     /**
