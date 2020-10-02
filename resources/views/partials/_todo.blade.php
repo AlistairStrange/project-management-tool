@@ -31,7 +31,7 @@
                     <table class="table-auto divide-y divide-gray-200 w-full">
                         <tbody>
                             <!-- If the current list has any items, iterate through them -->
-                            @if(isset($list->items)) 
+                            @if($list->items) 
                                 @foreach($list->items as $item)
                                     @if((Auth::user()->can('completed', $item) || Auth::user()->can('delete', $item)))
                                         <tr class="divide-x divide-gray-400 hover:bg-gray-200 w-11/12">
