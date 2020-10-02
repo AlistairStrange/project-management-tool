@@ -12,7 +12,7 @@ class UserPolicy
 
     public function before(User $user)
     {
-        if($user->isAdmin === 1) {
+        if($user->isAdmin == 1) {
             return true;
         }
     }
@@ -37,7 +37,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        if($user->id === $model->id){
+        if($user->id == $model->id){
             return Response::allow();
         } else {
             return Response::deny('Only administrators can update users.');

@@ -14,7 +14,7 @@ class TodoItemPolicy
 
     public function before(User $user)
     {
-        if($user->isAdmin === 1) {
+        if($user->isAdmin == 1) {
             return true;
         }
     }
@@ -41,7 +41,7 @@ class TodoItemPolicy
     {
         switch($user->role) {
             case "general":
-                if($item->todo->owner_id === $user->id || $item->todo->ticket->assignee_id === $user->id) {
+                if($item->todo->owner_id == $user->id || $item->todo->ticket->assignee_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -49,7 +49,7 @@ class TodoItemPolicy
                     break;
                 }
             case "coordinator":
-                if($item->todo->owner_id === $user->id || $item->todo->ticket->reporter === $user->id) {
+                if($item->todo->owner_id == $user->id || $item->todo->ticket->reporter == $user->id) {
                     return true;
                     break;
                 } else {
@@ -57,7 +57,7 @@ class TodoItemPolicy
                     break;
                 }
             case "pm":
-                if($item->todo->ticket->projectBoard->owner_id === $user->id || $item->todo->owner_id === $user->id) {
+                if(in_array($user->id, $item->todo->ticket->projectBoard->users->pluck('id')->toArray())|| $item->todo->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -78,7 +78,7 @@ class TodoItemPolicy
     {
         switch($user->role) {
             case "general":
-                if($item->todo->owner_id === $user->id || $item->todo->ticket->assignee_id === $user->id) {
+                if($item->todo->owner_id == $user->id || $item->todo->ticket->assignee_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -86,7 +86,7 @@ class TodoItemPolicy
                     break;
                 }
             case "coordinator":
-                if($item->todo->owner_id === $user->id || $item->todo->ticket->reporter === $user->id) {
+                if($item->todo->owner_id == $user->id || $item->todo->ticket->reporter == $user->id) {
                     return true;
                     break;
                 } else {
@@ -94,7 +94,7 @@ class TodoItemPolicy
                     break;
                 }
             case "pm":
-                if($item->todo->ticket->projectBoard->owner_id === $user->id || $item->todo->owner_id === $user->id) {
+                if(in_array($user->id, $item->todo->ticket->projectBoard->users->pluck('id')->toArray()) || $item->todo->owner_id == $user->id) {
                     return true;
                     break;
                 } else {

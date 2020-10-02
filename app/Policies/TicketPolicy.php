@@ -13,7 +13,7 @@ class TicketPolicy
 
     public function before(User $user)
     {
-        if($user->isAdmin === 1) {
+        if($user->isAdmin == 1) {
             return true;
         }
     }
@@ -82,7 +82,7 @@ class TicketPolicy
                 break;
             case "coordinator":
                 // coordinator can update the ticket only if it's created by him
-                if ($ticket->reporter === $user->email) {
+                if ($ticket->reporter == $user->email) {
                     return true;
                     break;
                 } else {
@@ -91,7 +91,7 @@ class TicketPolicy
                 }
             case "pm":
                 // Project maanager can update the ticket only within Project Board assigned to him / or where he's assigned as a PM
-                if($ticket->projectBoard->owner_id === $user->id) {
+                if(in_array($user->id, $ticket->projectBoard->users->pluck('id')->toArray())) {
                     return true;
                     break;
                 } else {
@@ -119,7 +119,7 @@ class TicketPolicy
                 break;
             case "pm":
                 // Project maanager can delete the ticket only within Project Board assigned to him / or where he's assigned as a PM
-                if($ticket->projectBoard->owner_id === $user->id) {
+                if(in_array($user->id, $ticket->projectBoard->users->pluck('id')->toArray())) {
                     return true;
                     break;
                 } else {
@@ -147,7 +147,7 @@ class TicketPolicy
                 break;
             case "pm":
                 // Project maanager can restore the ticket only within Project Board assigned to him / or where he's assigned as a PM
-                if($ticket->projectBoard->owner_id === $user->id) {
+                if($ticket->projectBoard->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -178,7 +178,7 @@ class TicketPolicy
     {
         switch($user->role) {
             case "general":
-                if($ticket->assignee_id === $user->id) {
+                if($ticket->assignee_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -187,7 +187,7 @@ class TicketPolicy
                 }
             case "coordinator":
                 // coordinator can change status of the ticket only if it's created by him
-                if ($ticket->reporter === $user->email) {
+                if ($ticket->reporter == $user->email) {
                     return true;
                     break;
                 } else {
@@ -196,7 +196,7 @@ class TicketPolicy
                 }
             case "pm":
                 // Project maanager can update the ticket only within Project Board assigned to him / or where he's assigned as a PM
-                if($ticket->projectBoard->owner_id === $user->id) {
+                if(in_array($user->id, $ticket->projectBoard->users->pluck('id')->toArray())) {
                     return true;
                     break;
                 } else {

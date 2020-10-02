@@ -13,7 +13,7 @@ class CommentPolicy
 
     public function before(User $user)
     {
-        if($user->isAdmin === 1) {
+        if($user->isAdmin == 1) {
             return true;
         }
     }
@@ -27,7 +27,7 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment)
     {
-        if ($user->id === $comment->user_id) {
+        if ($user->id == $comment->user_id) {
             return true;
         } else {
             return Response::deny("You can't delete this comment");

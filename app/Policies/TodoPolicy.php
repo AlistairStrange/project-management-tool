@@ -15,7 +15,7 @@ class TodoPolicy
 
     public function before(User $user)
     {
-        if($user->isAdmin === 1) {
+        if($user->isAdmin == 1) {
             return true;
         }
     }
@@ -42,7 +42,7 @@ class TodoPolicy
     {
         switch($user->role) {
             case "general":
-                if($list->owner_id === $user->id) {
+                if($list->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -51,7 +51,7 @@ class TodoPolicy
                 }
             case "coordinator":
                 // coordinator can change status of the ticket only if it's created by him
-                if ($list->ticket->reporter === $user->email) {
+                if ($list->ticket->reporter == $user->email) {
                     return true;
                     break;
                 } else {
@@ -60,7 +60,7 @@ class TodoPolicy
                 }
             case "pm":
                 // Project maanager can update the ticket only within Project Board assigned to him / or where he's assigned as a PM
-                if($list->ticket->projectBoard->owner_id === $user->id) {
+                if($list->ticket->projectBoard->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -81,7 +81,7 @@ class TodoPolicy
     {
         switch($user->role) {
             case "general":
-                if($list->ticket->assignee_id === $user->id || $list->owner_id === $user->id) {
+                if($list->ticket->assignee_id == $user->id || $list->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -90,7 +90,7 @@ class TodoPolicy
                 }
             case "coordinator":
                 // coordinator can change status of the ticket only if it's created by him
-                if ($list->ticket->reporter === $user->email || $list->owner_id === $user->id) {
+                if ($list->ticket->reporter == $user->email || $list->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -99,7 +99,7 @@ class TodoPolicy
                 }
             case "pm":
                 // Project maanager can update the ticket only within Project Board assigned to him / or where he's assigned as a PM
-                if($list->ticket->projectBoard->owner_id === $user->id || $list->owner_id === $user->id) {
+                if($list->ticket->projectBoard->owner_id == $user->id || $list->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -113,7 +113,7 @@ class TodoPolicy
     {
         switch($user->role) {
             case "general":
-                if($list->ticket->assignee_id === $user->id || $list->owner_id === $user->id) {
+                if($list->ticket->assignee_id == $user->id || $list->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -122,7 +122,7 @@ class TodoPolicy
                 }
             case "coordinator":
                 // coordinator can add items only if it's created by him
-                if ($list->ticket->reporter === $user->email || $list->owner_id === $user->id) {
+                if ($list->ticket->reporter == $user->email || $list->owner_id == $user->id) {
                     return true;
                     break;
                 } else {
@@ -131,7 +131,7 @@ class TodoPolicy
                 }
             case "pm":
                 // Project maanager can add items to lists only within Project Board assigned to him / or where he's assigned as a PM
-                if($list->ticket->projectBoard->owner_id === $user->id || $list->owner_id === $user->id) {
+                if($list->ticket->projectBoard->owner_id == $user->id || $list->owner_id == $user->id) {
                     return true;
                     break;
                 } else {

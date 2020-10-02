@@ -13,7 +13,7 @@ class ProjectBoardPolicy
 
     public function before(User $user)
     {
-        if($user->isAdmin === 1) {
+        if($user->isAdmin == 1) {
             return true;
         }
     }
@@ -65,7 +65,7 @@ class ProjectBoardPolicy
     public function update(User $user, ProjectBoard $projectBoard)
     {
         // Only PM who are project owners can edit them.
-        if($user->role === 'pm' && $projectBoard->owner_id === $user->id) {
+        if($user->role == 'pm' && in_array($user->id, $projectBoard->users->pluck('id')->toArray())) {
             return Response::allow();
         } else {
             return Response::deny("You are not assigned Project manager of this board");
